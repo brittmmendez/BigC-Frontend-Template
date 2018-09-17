@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { inject, observer } from 'mobx-react';
 import { Link } from "react-router-dom";
 import "../static/App.css";
 
+@inject('shop')
+@observer
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -13,17 +16,15 @@ export default class Login extends Component {
     };
   }
 
-  formErrors() {
+  validateForm() {
     if (this.state.email.length === 0 || this.state.password.length === 0) {
       this.setState({
         loginError: true
       })
+      return false
     }else{
-      this.setState({
-        loginError: false
-      })
+      return true
     }
-    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -34,14 +35,15 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.formErrors()) {
-      alert("Logging In!")
+    if(this.validateForm()){
+      this.props.shop.user.logIn(this.state);
+      this.props.history.push('/account')
     }
   }
 
   render() {
     return (
-      <div>
+      <div className="form">
         <form onSubmit={this.handleSubmit}>
           <div class="field">
             <label class="label">Email</label>
@@ -77,7 +79,6 @@ export default class Login extends Component {
             </div>
             {this.state.loginError && <p class="help is-danger">Invalid Username or Password</p>}
           </div>
-
 
           <div class="field">
             <p class="control">

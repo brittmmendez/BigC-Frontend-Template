@@ -48,10 +48,8 @@ class MyCart extends Component {
       <div>
         <h1>My Cart</h1>
         <h3>Sorry, there are no items in your cart!</h3>
-        <Link to="/products-page"> 
-          <button className="button is-dark">
-            Shop Products
-          </button>
+        <Link class="button is-dark" to="/products-page">
+          <span>Shop Products</span>
         </Link>
       </div>
     );

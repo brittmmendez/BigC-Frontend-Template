@@ -132,16 +132,11 @@ validateForm() {
   handleSubmit = event => {
     event.preventDefault();
     this.formErrors()
-    // if(this.validateForm()){
-    //   // this.props.shop.user.register(this.state);
-    //   alert("yay")
-    
-    // }else{
-    //   alert("you have errors")
-    // }
-
     if(this.validateForm()){
-      alert("Yay!")
+      debugger
+      this.props.shop.user.register(this.state);
+      alert("account created")
+      this.props.history.push('/account')
     }
   }
 

@@ -99,9 +99,15 @@ class NavBar extends Component {
                     </Link>
                 </p>
                 <p class="control">
-                    <Link class="bd-tw-button button" to="login">
-                    <span>Log In</span>
+                {!shop.user.loggedIn ?
+                    <Link class="bd-tw-button button" to="/login">
+                        <span>Log In</span>
                     </Link>
+                    :
+                    <Link class="bd-tw-button button" to="/account">
+                        <span>My Account</span>
+                    </Link>
+                    }
                 </p>
                 </div>
             </div>

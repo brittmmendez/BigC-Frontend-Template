@@ -23,7 +23,7 @@ const Footer = () => {
                 <div class="column is-4">
                     <p class="title is-5 is-marginless" >Support </p>
                     <p> <Link  to="/help"> Help </Link> </p>
-                    <p> <Link  to="/product2"> Contact Us</Link> </p>
+                    <p> <Link  to="/contact-us"> Contact Us</Link> </p>
                 </div>
                 
             </div>

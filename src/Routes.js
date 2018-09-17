@@ -14,11 +14,13 @@ import About4 from "./components/about/About4";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
+import Account from "./components/Account";
 import OrderConfirmation from "./components/OrderConfirmation";
 import Payment from "./containers/Payment";
 import MyCart from "./containers/MyCart";
 import Checkout from "./containers/Checkout";
 import Help from "./components/Help";
+import ContactUs from "./components/ContactUs";
 
 export default () =>
   <Switch>
@@ -34,11 +36,13 @@ export default () =>
     <Route path='/about3' component={About3} />
     <Route path='/about4' component={About4} />
     <Route path='/help' component={Help} />
-    <Route path='/login' component={Login} />
+    <Route path='/contact-us' component={ContactUs} />
     <Route path='/my-cart' component={MyCart} />
     <Route path='/payment' component={Payment} />
     <Route path='/checkout' component={Checkout} />
     <Route path='/order-confirmation' component={OrderConfirmation} />
     <Route path='/register' component={Register} />
+    <Route path='/login' component={Login} />
+    <Route path='/account' component={Account} />
     <Route component={NotFound} />
   </Switch>

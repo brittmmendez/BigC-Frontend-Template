@@ -1,68 +1,104 @@
 /* eslint-disable no-param-reassign */
 // MobX-State-Tree uses reassignment to self. Disable that rule for model files
-import { types, flow} from 'mobx-state-tree';
+import { types, flow, getParent} from 'mobx-state-tree';
 
 const User = types
   .model({
     id: types.optional(types.number, 0),
-    firstName: types.optional(types.string, 'Dear'),
+    firstName: types.optional(types.string, ''),
     lastName: types.optional(types.string, ''),
     email: types.optional(types.string, ''),
-    loggedIn: false
+    loggedIn: types.optional(types.boolean, false),
   })
   .views(self => ({
-    get loggedIn() {
-      return self.email !== '';
+    get loggedInView() {
+      return self.loggedIn
     }
   }))
   .actions(self => ({
-
-    
-    setUser(result) {
-      self.firstName = result.id;
-      self.firstName = result.first_name;
-      self.lastName = result.last_name;
-      // self.email = result.user.email;
-      self.loggedIn = true;
-    },
     logOut() {
-      self.firstName = 'Deary';
+      self.id = 0;
+      self.firstName = '';
       self.lastName = '';
+      self.email = '';
+      self.loggedIn = false;
+      console.log("logged Out")
     },
-  
-      register: flow(function* register(userInfo) {
-         
-             try {
-                const response = yield window.fetch('https://my-mix-api.herokuapp.com/api/register', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    firstName: userInfo.firstName,
-                    lastName: userInfo.lastName,
-                    email: userInfo.email,
-                    password: userInfo.password
-                  }),
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                  }
-                });
-        
-                if (response.status === 400) {
-                  const result = yield response.json();
-                  console.log(result)
-                }
-        
-                if (response.status === 201) {
-                  console.log("created")
-                  const result = yield response.json();
-                  this.setUser(result);
-                }
-              } catch (err) {
-                console.log(err)
-              }
-              console.log("created")
-            })
-    
+
+    logIn: flow(function* logIn(userInfo) {
+      try {
+        debugger
+        const response = yield window.fetch(`${getParent(self,1).apiUrl}/login`, {
+          method: 'POST',
+          body: JSON.stringify({
+            email: userInfo.email,
+            password: userInfo.password
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        });
+
+        if (response.status === 401) {
+          const result = yield response.json();
+          console.log(result)
+        }
+
+        if (response.status === 200) {
+          let result = response;
+          result = yield result.json();
+          // self.id = result.id;
+          // self.firstName = result.first_name
+          // self.lastName = result.last_name
+          self.email = userInfo.email
+          self.loggedIn = true
+          console.log("signed in")          
+          console.log(result)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+      console.log("You're in!")
+    }),
+
+    register: flow(function* register(userInfo) {
+      try {
+        const response = yield window.fetch(`${getParent(self,1).apiUrl}/register`, {
+          method: 'POST',
+          body: JSON.stringify({
+            first_name: userInfo.firstName,
+            last_name: userInfo.lastName,
+            email: userInfo.email,
+            password: userInfo.password
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        });
+
+        if (response.status === 400) {
+          const result = yield response.json();
+          console.log(result)
+        }
+
+        if (response.status === 201) {
+          let result = response;
+          result = yield result.json();
+          console.log("created")
+          self.id = result.id;
+          self.firstName = result.first_name
+          self.lastName = result.last_name
+          self.email = userInfo.email
+          self.loggedIn = true
+          console.log(result)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+      console.log("created")
+    })
   }));
 
 export default User;

@@ -187,12 +187,17 @@ class Checkout extends Component {
 
   render() {
     const { basket } = this.props.shop
+    const { shop } = this.props
+    
     if (basket.itemCount > 0 ) {
       return (
         <div>
           <h1>Checkout</h1>
           <h3> Subtotal: <strong> ${basket.subTotal} </strong></h3>
           <p>(Shipping included)</p>
+
+          {!shop.user.loggedIn &&
+          <p> Continue as Guest or <strong> <Link to="/login"> Log In </Link> </strong> </p>}
     
           <div>
             <form onSubmit={this.handleSubmit}>
@@ -523,13 +528,11 @@ class Checkout extends Component {
     )}else{
       return (
         <div>
-          <h1>Checkout</h1>
-          <h3>Sorry, you have no items yet!</h3>
-          <Link to="/products-page"> 
-            <button className="start-trail-button" block bsSize="large">
-              Shop Products
-            </button>
-          </Link>
+            <h1>Checkout</h1>
+            <h3>Sorry, you have no items yet!</h3>
+            <Link class="button is-dark" to="/products-page">
+                <span>Shop Products</span>
+            </Link>
         </div>
       )}
     }

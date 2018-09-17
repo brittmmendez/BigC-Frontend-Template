@@ -17,7 +17,7 @@ const Shop = types
       return {
         getProducts: flow(function* getProducts() {
           if (self.products.productCount === 0) {
-            const response = yield fetch('https://my-mix-api.herokuapp.com/api/products')
+            const response = yield fetch(`${self.apiUrl}/products`)
             const json = yield response.json();
             console.log("Loaded Items")
             console.log(json)
