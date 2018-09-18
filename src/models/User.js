@@ -27,7 +27,6 @@ const User = types
 
     logIn: flow(function* logIn(userInfo) {
       try {
-        debugger
         const response = yield window.fetch(`${getParent(self,1).apiUrl}/login`, {
           method: 'POST',
           body: JSON.stringify({
@@ -48,9 +47,9 @@ const User = types
         if (response.status === 200) {
           let result = response;
           result = yield result.json();
-          // self.id = result.id;
-          // self.firstName = result.first_name
-          // self.lastName = result.last_name
+          self.id = result.id;
+          self.firstName = result.first_name
+          self.lastName = result.last_name
           self.email = userInfo.email
           self.loggedIn = true
           console.log("signed in")          
@@ -59,7 +58,6 @@ const User = types
       } catch (err) {
         console.log(err)
       }
-      console.log("You're in!")
     }),
 
     register: flow(function* register(userInfo) {
@@ -97,7 +95,6 @@ const User = types
       } catch (err) {
         console.log(err)
       }
-      console.log("created")
     })
   }));
 

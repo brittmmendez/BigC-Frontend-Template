@@ -8,7 +8,6 @@ import "../static/App.css";
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       email: "",
       password: "",
@@ -48,7 +47,8 @@ export default class Login extends Component {
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input 
+              <input
+                autoFocus 
                 id="email"
                 class="input" 
                 type="email" 
@@ -62,7 +62,7 @@ export default class Login extends Component {
             </div>
           </div>
 
-           <div class="field">
+          <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-left has-icons-right">
               <input 

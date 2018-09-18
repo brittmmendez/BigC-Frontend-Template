@@ -4,7 +4,6 @@ import { types } from 'mobx-state-tree';
 
 const BillingInfo = types
   .model({
-    name: types.optional(types.string,''),
     first_name: types.optional(types.string,''),
     last_name: types.optional(types.string,''),
     street_1: types.optional(types.string,''),
@@ -16,6 +15,5 @@ const BillingInfo = types
     phone: types.optional(types.string,''),
     email: types.optional(types.string,''),
   });
-
 
 export default BillingInfo;

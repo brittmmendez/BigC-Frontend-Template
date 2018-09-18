@@ -2,10 +2,14 @@ import React from 'react';
 
 const About4 = () => {
   return (
-    <div>
-      <h1>About 4 page!</h1>
-      <h3>About 4 page content comming soon</h3>
-    </div>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">About4</h1>
+        <h2 class="subtitle">
+          About 4 page content comming soon! <strong>About4</strong> will have a lot of great content!
+        </h2>
+      </div>
+    </section>
   );
 }
 

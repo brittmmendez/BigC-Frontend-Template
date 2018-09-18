@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { observer, inject} from 'mobx-react'
 import { Link } from "react-router-dom";
+import TotalAmount from './TotalAmount'
+import ShopProductsBtn from '../components/ShopProductsBtn'
 
 @inject("shop")
 @observer
@@ -14,9 +16,10 @@ class MyCart extends Component {
           <h1>My Cart</h1>
           {basket.items.map(item => (
             <div >
+              <TotalAmount />
               <Link key={item.id} to={`/products-page/${item.item}`}>
                 <h2> {item.name} </h2>
-                <img src={item.thumbnail} alt="img" width="15%" height="15%"/>
+                <img src={item.thumbnail} alt="img" width="150px" height="150px"/>
               </Link>
               <br/>
               <h4> {item.quantity} x ${item.price} = ${item.productTotal}</h4>
@@ -35,10 +38,8 @@ class MyCart extends Component {
             </div>
           ))}
 
-          <Link to="/checkout">
-              <button className="button is-dark">
-                Checkout
-              </button>
+          <Link className="button is-dark" to="/checkout">
+            Checkout
           </Link>
         </div>
       )
@@ -47,10 +48,7 @@ class MyCart extends Component {
     return (
       <div>
         <h1>My Cart</h1>
-        <h3>Sorry, there are no items in your cart!</h3>
-        <Link class="button is-dark" to="/products-page">
-          <span>Shop Products</span>
-        </Link>
+        < ShopProductsBtn/>
       </div>
     );
   }

@@ -2,10 +2,14 @@ import React from 'react';
 
 const Product2 = () => {
   return (
-    <div>
-      <h1>Product 2 Page!</h1>
-      <h3>Product 2 page content comming soon</h3>
-    </div>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Product2</h1>
+        <h2 class="subtitle">
+          Product 2 page content comming soon! <strong>Product2</strong> will have a lot of great content!
+        </h2>
+      </div>
+    </section>
   );
 }
 

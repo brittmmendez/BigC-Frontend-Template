@@ -7,7 +7,6 @@ import "../static/App.css";
 export default class PurchaseForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       product: this.props.product
     };
@@ -22,15 +21,10 @@ export default class PurchaseForm extends Component {
   }
 
   render() {
-
     return (
       <div className="form">
         <form onSubmit={this.handleSubmit}>
-
-          <button
-            class="button is-dark"
-            type="submit"
-          >
+          <button class="button is-dark" type="submit">
             ADD TO BAG
           </button>
         </form>

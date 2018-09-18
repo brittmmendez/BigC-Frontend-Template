@@ -16,6 +16,5 @@ const OrderConfirmation = types
     // state: types.optional(types.string,''),
     // zip: types.optional(types.string,''),
   });
-  
-
+ 
 export default OrderConfirmation;

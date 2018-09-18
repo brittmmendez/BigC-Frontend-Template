@@ -2,10 +2,14 @@ import React from 'react';
 
 const ContactUs = () => {
   return (
-    <div>
-      <h1>This is the ContactUs page which we will have contact info onlater!</h1>
-      <h3>Yay for the ContactUs page!</h3>
-    </div>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Yay for the ContactUs page!</h1>
+        <h2 class="subtitle">
+          This is the <strong> ContactUs </strong> page which we will have contact info on later!
+        </h2>
+      </div>
+    </section>
   );
 }
 

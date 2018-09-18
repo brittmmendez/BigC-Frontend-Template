@@ -6,9 +6,8 @@ import "../static/App.css";
 @observer
 export default class Register extends Component {
   constructor(props) {
-    
     super(props);
-
+    
     this.state = {
       firstName: "",
       lastName: "",
@@ -110,18 +109,18 @@ export default class Register extends Component {
     this.confirmPassword() 
     this.verifyEmail() 
     this.verifyPassword()
-}
+  }
 
-validateForm() {
-  return (
-    this.confirmFirstName() &&
-    this.confirmLastName() &&
-    this.confirmEmail() &&
-    this.confirmPassword() &&
-    this.verifyEmail() &&
-    this.verifyPassword()
-  )
-}
+  validateForm() {
+    return (
+      this.confirmFirstName() &&
+      this.confirmLastName() &&
+      this.confirmEmail() &&
+      this.confirmPassword() &&
+      this.verifyEmail() &&
+      this.verifyPassword()
+    )
+  }
 
   handleChange = event => {
     this.setState({
@@ -133,9 +132,7 @@ validateForm() {
     event.preventDefault();
     this.formErrors()
     if(this.validateForm()){
-      debugger
       this.props.shop.user.register(this.state);
-      alert("account created")
       this.props.history.push('/account')
     }
   }
@@ -148,12 +145,13 @@ validateForm() {
             <label class="label">First Name</label>
             <div class="control has-icons-left has-icons-right">
               <input 
+                autoFocus
                 id="firstName"
                 className={this.state.ErrorFirstName ? "input is-danger" : "input"}
-                  type="text" 
-                  placeholder="First Name" 
-                  value={this.state.firstName}                    
-                  onChange={this.handleChange}
+                type="text" 
+                placeholder="First Name" 
+                value={this.state.firstName}                    
+                onChange={this.handleChange}
               />
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>

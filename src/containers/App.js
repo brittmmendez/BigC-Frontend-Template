@@ -21,19 +21,17 @@ class App extends Component {
           </div>
         </div>
       )
-      } else {
+    } else {
       return (
         <Router>
-        <div id="main-wrapper" >
-          <div className="App">
-            <DevTools />
-            <NavBar />
-            <div className="text-center test">
+          <div id="main-wrapper" >
+            <div className="App">
+              <DevTools />
+              <NavBar />
               <Routes />
+              <Footer />
             </div>
-            <Footer />
           </div>
-        </div>
         </Router>
       );
     }

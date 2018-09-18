@@ -3,9 +3,9 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-        return(
-            <footer class="footer is-light">
-              <div class="columns has-text-centered">
+    return(
+        <footer class="footer is-light">
+            <div class="columns has-text-centered">
                 <div class="column is-4">
                     <p class="title is-5 is-marginless" >Products </p>
                     <p> <Link  to="/product1"> Product 1 </Link> </p>
@@ -24,13 +24,10 @@ const Footer = () => {
                     <p class="title is-5 is-marginless" >Support </p>
                     <p> <Link  to="/help"> Help </Link> </p>
                     <p> <Link  to="/contact-us"> Contact Us</Link> </p>
-                </div>
-                
+                </div> 
             </div>
-
-</footer>
-
-        );
-    }
+        </footer>
+    );
+}
  
 export default Footer

@@ -12,7 +12,7 @@ const OrderItem = types
       description: types.maybe(types.string,""),
       thumbnail: types.maybe(types.string, ""),
       quantity: types.optional(types.number, 1),
-      price: types.optional(types.number, 5),
+      price: types.optional(types.number, 0),
       partOfKit: false
   })
   .views(self => ({
@@ -26,9 +26,11 @@ const OrderItem = types
       addCartQuantity(quantity = 1) {
         self.quantity += quantity;
       },
+
       lowerCartQuantity() {
         self.quantity -= 1;
       },
+      
       removeFromCart() {
         self.quantity_in_basket = 0;
       }

@@ -2,9 +2,8 @@
 // // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 
-const BillingInfo = types
+const ShippingInfo = types
   .model({
-    name: types.optional(types.string,''),
     first_name: types.optional(types.string,''),
     last_name: types.optional(types.string,''),
     street_1: types.optional(types.string,''),
@@ -17,5 +16,4 @@ const BillingInfo = types
     email: types.optional(types.string,''),
   });
 
-
-export default BillingInfo;
+export default ShippingInfo;
