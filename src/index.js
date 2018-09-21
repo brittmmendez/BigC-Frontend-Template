@@ -12,7 +12,7 @@ let shop = (window.group = Shop.create({}))
 ReactDOM.render(
   <Provider shop={shop}>
     <BrowserRouter>
-      <App />
+              <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

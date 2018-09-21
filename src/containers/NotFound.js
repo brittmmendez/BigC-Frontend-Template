@@ -1,7 +1,7 @@
-import React from "react";
-import "../static/NotFound.css";
+import React from 'react';
 
-export default () =>
+export default () => (
   <div className="NotFound">
     <h3>Sorry, page not found!</h3>
-  </div>;
+  </div>
+);

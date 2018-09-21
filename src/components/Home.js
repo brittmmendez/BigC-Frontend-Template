@@ -1,10 +1,10 @@
-import React from "react";
-import ShopProductsBtn from './ShopProductsBtn'
+import React from 'react';
+import ShopProductsBtn from './ShopProductsBtn';
 
-const Home = () => {
-    return (
-        < ShopProductsBtn/>       
-    );
-}
+const Home = () => (
+  <div className="has-text-centered">
+    <ShopProductsBtn />
+  </div>
+);
 
 export default Home;

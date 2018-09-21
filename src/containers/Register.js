@@ -139,15 +139,16 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className="form">
+      <div className="container has-text-centered">
         <form onSubmit={this.handleSubmit}>
           <div class="field">
-            <label class="label">First Name</label>
+            <label class="label is-marginless">First Name</label>
+            {this.state.ErrorFirstName && <p class="help is-danger is-marginless">Please Enter First Name!</p>}
             <div class="control has-icons-left has-icons-right">
               <input 
                 autoFocus
                 id="firstName"
-                className={this.state.ErrorFirstName ? "input is-danger" : "input"}
+                className={this.state.ErrorFirstName ? "input is-danger is-marginless" : "input"}
                 type="text" 
                 placeholder="First Name" 
                 value={this.state.firstName}                    
@@ -160,11 +161,11 @@ export default class Register extends Component {
                 <i className= "fas fa-exclamation-triangle"></i>
                </span>}
             </div>
-            {this.state.ErrorFirstName && <p class="help is-danger">Please Enter First Name!</p>}
           </div>
 
           <div class="field">
-            <label class="label">Last Name</label>
+            <label class="label is-marginless">Last Name</label>
+            {this.state.ErrorLastName && <p class="help is-danger is-marginless">Please Enter Last Name!</p>}
             <div class="control has-icons-left has-icons-right">
                <input 
                 id="lastName"
@@ -182,11 +183,11 @@ export default class Register extends Component {
                 <i class="fas fa-exclamation-triangle"></i>
               </span>}
             </div>
-            {this.state.ErrorLastName && <p class="help is-danger">Please Enter Last Name!</p>}
           </div>
 
             <div class="field">
-              <label class="label">Email</label>
+              <label class="label is-marginless">Email</label>
+              {this.state.ErrorEmail && <p class="help is-danger is-marginless">Please Enter Valid Email!</p>}
               <div class="control has-icons-left has-icons-right">
                 <input 
                   id="email"
@@ -203,11 +204,11 @@ export default class Register extends Component {
                   <i class="fas fa-exclamation-triangle"></i>
                 </span>}
               </div>
-              {this.state.ErrorEmail && <p class="help is-danger">Please Enter Valid Email!</p>}
             </div>
 
             <div class="field">
-              <label class="label">Confirm Email</label>
+              <label class="label is-marginless">Confirm Email</label>
+              {this.state.ErrorVerifyEmail && <p class="help is-danger is-marginless">Email and Confirmation Email Do Not Match!</p>}
               <div class="control has-icons-left has-icons-right">
                 <input 
                   id="verifyEmail"
@@ -225,11 +226,11 @@ export default class Register extends Component {
                   <i class="fas fa-exclamation-triangle"></i>
                 </span>}
               </div>
-              {this.state.ErrorVerifyEmail && <p class="help is-danger">Email and Confirmation Email Do Not Match!</p>}
             </div>
 
             <div class="field">
-              <label class="label">Password</label>
+              <label class="label is-marginless">Password</label>
+              {this.state.ErrorPassword && <p class="help is-danger is-marginless">Please Enter Password!</p>}
               <div class="control has-icons-left has-icons-right">
                 <input 
                   id="password"
@@ -246,11 +247,11 @@ export default class Register extends Component {
                   <i class="fas fa-exclamation-triangle"></i>
                 </span>}
               </div>
-              {this.state.ErrorPassword && <p class="help is-danger">Please Enter Password!</p>}
             </div>
 
             <div class="field">
-              <label class="label">Confirm Password</label>
+              <label class="label is-marginless">Confirm Password</label>
+              {this.state.ErrorVerifyPassword && <p class="help is-danger is-marginless">Password and Confirmation Password Do Not Match!</p>}
               <div class="control has-icons-left has-icons-right">
                 <input 
                   id="verifyPassword"
@@ -267,11 +268,10 @@ export default class Register extends Component {
                   <i class="fas fa-exclamation-triangle"></i>
                 </span>}
               </div>
-              {this.state.ErrorVerifyPassword && <p class="help is-danger">Password and Confirmation Password Do Not Match!</p>}
             </div>
 
             <div class="field">
-              <p class="control">
+              <p class="control has-text-centered">
                 <button class="button is-dark" type="submit">
                   Register
                 </button>

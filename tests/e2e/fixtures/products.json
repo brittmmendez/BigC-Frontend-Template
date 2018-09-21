@@ -1,0 +1,59 @@
+[
+  {
+    "id":77,"name":"[Sample] Fog Linen Chambray Towel - Beige Stripe",
+    "description":"<p>The perfect beach towel: thin, lightweight and highly absorbent. Crafted by Fog Linen in Japan using soft Lithuanian linen, each towel rolls up for compact stowaway. Dry off after a refreshing dip in the ocean and stretch out on it for a sun bath. The thinness ensures a quick dry so you can have it rolled back up in your bag without soaking your belongings.</p>\n<p>Measures 75 x 145 cm/29.5 x 57 in</p>\n<p>100% Linen</p>",
+    "price":49,
+    "options":[
+      {
+        "id":108,
+        "option_id":18,
+        "name":"Size",
+        "values":[
+          {
+            "value_id":68,
+            "value_name":"XS"
+          },
+          {
+            "value_id":69,
+            "value_name":"S"
+          }
+        ]
+      },
+      {
+        "id":109,
+        "option_id":3,
+        "name":"Color",
+        "values":[
+          {
+            "value_id":7,
+            "value_name":"#cccccc"
+          },
+          {
+            "value_id":8,
+            "value_name":"#000000"
+          }
+        ]
+      }
+    ],
+    "categories":[18,23],
+    "thumbnail_url":"https://cdn7.bigcommerce.com/s-pp5yfu1rb1/products/77/images/266/foglinenbeigestripetowel1b.1537367312.220.290.jpg?c=2"
+  },
+  {
+    "id":80,
+    "name":"[Sample] Orbit Terrarium - Large",
+    "description":"<p>This strikingly beautiful terrarium will make a welcome addition to your home bringing some green to the scene. A handblown glass sphere rests freely on a thick, concave carved fir base allowing it to be angled in any direction.</p>\n<p><em>Plants, rocks and soil are not included.</em></p>\n<p>Measures 21.59 cm dia x 26.7 cm h / 8.5 in dia x 10.5 in h</p>",
+    "price":109,
+    "options":[],
+    "categories":[19,23],
+    "thumbnail_url":"https://cdn7.bigcommerce.com/s-pp5yfu1rb1/products/80/images/272/roundterrariumlarge.1537367312.220.290.jpg?c=2"
+  },
+  {
+    "id":81,
+    "name":"[Sample] Orbit Terrarium - Small",
+    "description":"<p>This strikingly beautiful terrarium will make a welcome addition to your home bringing some green to the scene. A handblown glass sphere rests freely on a thick, concave carved fir base allowing it to be angled in any direction.</p>\n<p><em>Plants, rocks and soil are not included.</em></p>\n<p>Measures 16.5 cm dia x 17.8 cm h / 6.5 in dia x 7 in h</p>",
+    "price":89,
+    "options":[],
+    "categories":[19,23],
+    "thumbnail_url":"https://cdn7.bigcommerce.com/s-pp5yfu1rb1/products/81/images/273/roundterrariumsmall.1537367312.220.290.jpg?c=2"
+  }
+]

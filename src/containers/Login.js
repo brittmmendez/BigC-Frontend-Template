@@ -39,13 +39,13 @@ export default class Login extends Component {
       this.props.history.push('/account')
     }
   }
-
+  
   render() {
     return (
-      <div className="form">
+      <div className="container has-text-centered">
         <form onSubmit={this.handleSubmit}>
           <div class="field">
-            <label class="label">Email</label>
+            <label class="label is-marginless">Email</label>
             <div class="control has-icons-left has-icons-right">
               <input
                 autoFocus 
@@ -63,7 +63,7 @@ export default class Login extends Component {
           </div>
 
           <div class="field">
-            <label class="label">Password</label>
+            <label class="label is-marginless">Password</label>
             <div class="control has-icons-left has-icons-right">
               <input 
                 id="password"
@@ -72,17 +72,17 @@ export default class Login extends Component {
                 placeholder="Password" 
                 value={this.state.password}
                 onChange={this.handleChange}
-              />
+                />
               <span class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
               </span>
             </div>
-            {this.state.loginError && <p class="help is-danger">Invalid Username or Password</p>}
           </div>
 
+          {this.state.loginError && <p class="help is-danger">Please Enter Username & Password</p>}
           <div class="field">
-            <p class="control">
-              <button class="button is-dark" type="submit">
+            <p class="control has-text-centered">
+              <button class="button is-dark " type="submit">
                 Login
               </button>
             </p>

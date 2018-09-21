@@ -5,10 +5,11 @@ import { types, flow, getParent} from 'mobx-state-tree';
 const User = types
   .model({
     id: types.optional(types.number, 0),
-    firstName: types.optional(types.string, ''),
-    lastName: types.optional(types.string, ''),
+    first_name: types.optional(types.string, ''),
+    last_name: types.optional(types.string, ''),
     email: types.optional(types.string, ''),
     loggedIn: types.optional(types.boolean, false),
+    token: types.optional(types.string, ''),
   })
   .views(self => ({
     get loggedInView() {
@@ -18,10 +19,11 @@ const User = types
   .actions(self => ({
     logOut() {
       self.id = 0;
-      self.firstName = '';
-      self.lastName = '';
+      self.first_name = '';
+      self.last_name = '';
       self.email = '';
       self.loggedIn = false;
+      self.token = '';
       console.log("logged Out")
     },
 
@@ -47,10 +49,11 @@ const User = types
         if (response.status === 200) {
           let result = response;
           result = yield result.json();
-          self.id = result.id;
-          self.firstName = result.first_name
-          self.lastName = result.last_name
+          self.id = result.customer.id;
+          self.first_name = result.customer.first_name
+          self.last_name = result.customer.last_name
           self.email = userInfo.email
+          self.token = result.token
           self.loggedIn = true
           console.log("signed in")          
           console.log(result)
@@ -85,11 +88,12 @@ const User = types
           let result = response;
           result = yield result.json();
           console.log("created")
-          self.id = result.id;
-          self.firstName = result.first_name
-          self.lastName = result.last_name
+          self.id = result.customer.id;
+          self.first_name = result.customer.first_name
+          self.last_name = result.customer.last_name
           self.email = userInfo.email
           self.loggedIn = true
+          self.token = result.token
           console.log(result)
         }
       } catch (err) {

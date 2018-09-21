@@ -12,14 +12,15 @@ class ProductsPage extends Component {
     let items = shop.products.data
 
     return (
-      <div>
-        <h1>Shop All</h1>
+      <div class="container has-text-centered">
         <Switch>
-            <ul>
-              {items.map((product, idx) => (
-                <ProductItemView key={idx} product={product} match={match}/>
-              ))}
-            </ul>
+        <div class="content">
+          <div class="columns is-multiline">
+            {items.map((product, idx) => (
+              <ProductItemView key={idx} product={product} match={match}/>
+            ))}
+          </div>
+        </div>
           <Route exact path={`/${match.url}/:productId`} component={ProductShow}/>
         </Switch>
       </div>

@@ -1,6 +1,7 @@
 // /* eslint-disable no-param-reassign */
 import { types } from 'mobx-state-tree';
 // // MobX-State-Tree uses reassignment to self. Disable that rule for model files
+import ProductOptions from './ProductOptions'
 
 const Product = types
   .model({
@@ -9,6 +10,8 @@ const Product = types
     price: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     thumbnail_url: types.optional(types.string, ""),
+    options: types.optional(types.array(ProductOptions),[]),
+    categories:  types.optional(types.array(types.number), []),
     quantity_in_basket: types.optional(types.number, 0),
   })
   .views(self => ({

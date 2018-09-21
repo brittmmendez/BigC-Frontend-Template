@@ -6,29 +6,28 @@ import "../static/App.css";
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { observer, inject} from 'mobx-react'
-import Spinner from 'react-spinkit';
 
 @inject("shop")
 @observer
 class App extends Component {
 
   render() {
-    if (!this.props.shop.products.data.length) {
-      return (
-        <div className="container">
-          <div id="divElement">
-            <Spinner name="pacman" color="#7EC4D7"/>
-          </div>
-        </div>
-      )
-    } else {
       return (
         <Router>
           <div id="main-wrapper" >
             <div className="App">
               <DevTools />
               <NavBar />
-              <Routes />
+              {!this.props.shop.products.data.length ?
+                <div className="container" >
+                  <div className="content has-text-centered">
+                    <i class="fa fa-spinner fa-pulse fa-7x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              :
+                <Routes />
+              }
               <Footer />
             </div>
           </div>
@@ -36,6 +35,5 @@ class App extends Component {
       );
     }
   }
-}
-
+  
 export default App;
