@@ -4,9 +4,8 @@ import { types } from 'mobx-state-tree';
 
 const OptionValues = types
   .model({
-    // name: types.optional(types.string,''),
     value_id: types.number,
-    value_name: types.optional(types.string ,'')
+    value_name: types.optional(types.string, ''),
   });
 
 export default OptionValues;

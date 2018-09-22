@@ -11,42 +11,39 @@ const Checkout = types
     billingInfo: types.optional(BillingInfo, {}),
     orderConfirmation: types.optional(OrderConfirmation, {}),
   })
-  .actions((self) => {
-    return {
-      addShippingInfo(info) {
-        const infoObj = {
-          first_name: info.firstName,
-          last_name: info.lastName,
-          street_1: info.street_1,
-          street_2: info.street_2,
-          city: info.city,
-          state: info.state,
-          zip: info.zip,
-          country: info.country,
-          phone: info.phone,
-          email: info.email,
+  .actions(self => ({
+    addShippingInfo(info) {
+      const infoObj = {
+        first_name: info.firstName,
+        last_name: info.lastName,
+        street_1: info.street_1,
+        street_2: info.street_2,
+        city: info.city,
+        state: info.state,
+        zip: info.zip,
+        country: info.country,
+        phone: info.phone,
+        email: info.email,
+      };
+      self.shippingInfo = (infoObj);
+      if (info.sameAsBilling) {
+        self.billingInfo=(infoObj);
+      } else {
+        const billingInfoObj = {
+          first_name: info.billing_first_name,
+          last_name: info.billing_last_name,
+          street_1: info.billing_street_1,
+          street_2: info.billing_street_2,
+          city: info.billing_city,
+          state: info.billing_state,
+          zip: info.billing_zip,
+          country: info.billing_country,
+          phone: info.billing_phone,
+          email: info.billing_email,
         };
-        self.shippingInfo = (infoObj);
-        
-        if (info.sameAsBilling){
-            self.billingInfo=(infoObj)
-        } else {
-            let billingInfoObj= {
-                first_name: info.billing_first_name,
-                last_name: info.billing_last_name,
-                street_1: info.billing_street_1,
-                street_2: info.billing_street_2,
-                city: info.billing_city,
-                state: info.billing_state,
-                zip: info.billing_zip,
-                country: info.billing_country,
-                phone: info.billing_phone,
-                email: info.billing_email,
-            }
-            self.billingInfo=(billingInfoObj)
-        }
-    }
-  }
-});
+        self.billingInfo=(billingInfoObj);
+      }
+    },
+  }));
 
 export default Checkout;

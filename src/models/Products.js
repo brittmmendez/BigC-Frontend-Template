@@ -10,7 +10,7 @@ const Products = types
   .views(self => ({
     get productCount() {
       return self.data.length;
-    }
+    },
   }));
 
 export default Products;
