@@ -1,191 +1,191 @@
-import React, { Component } from "react";
-import { observer, inject} from 'mobx-react'
-import { Link } from "react-router-dom";
-import TotalAmount from '../components/TotalAmount'
-import ShopProductsBtn from '../components/ShopProductsBtn'
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
+import TotalAmount from '../components/TotalAmount';
+import ShopProductsBtn from '../components/ShopProductsBtn';
 
-@inject("shop")
+@inject('shop')
 @observer
 class Checkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      street_1: "",
-      street_2: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: "",
-      phone: "",
-      email: "",
-      sameAsBilling: true, 
-      billing_first_name: "",
-      billing_last_name: "",
-      billing_street_1: "",
-      billing_street_2: "",
-      billing_city: "",
-      billing_state: "",
-      billing_zip: "",
-      billing_country: "",
-      billing_phone: "",
-      billing_email: "",
+      firstName: '',
+      lastName: '',
+      street_1: '',
+      street_2: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: '',
+      phone: '',
+      email: '',
+      sameAsBilling: true,
+      billing_first_name: '',
+      billing_last_name: '',
+      billing_street_1: '',
+      billing_street_2: '',
+      billing_city: '',
+      billing_state: '',
+      billing_zip: '',
+      billing_country: '',
+      billing_phone: '',
+      billing_email: '',
       ErrorFirstName: false,
       ErrorLastName: false,
       ErrorEmail: false,
       ErrorAddress: false,
       ErrorPhone: false,
-      ErrorBilling: false
+      ErrorBilling: false,
+    };
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  handleCheckBox = () => {
+    this.setState({
+      sameAsBilling: !this.state.sameAsBilling,
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.formErrors();
+    if (this.validateForm()) {
+      const { shop } = this.props;
+      shop.checkout.addShippingInfo(this.state);
+      console.log('Added Bill/Ship Info');
+      console.log(this.state);
+      this.props.history.push('/payment');
     }
   }
 
   confirmFirstName() {
-    if(this.state.firstName.length === 0){
+    if (this.state.firstName.length === 0) {
       this.setState({
-        ErrorFirstName: true
-      })
-    }else{
+        ErrorFirstName: true,
+      });
+    } else {
       this.setState({
-        ErrorFirstName: false
-      })
+        ErrorFirstName: false,
+      });
     }
-    return this.state.firstName.length !== 0
+    return this.state.firstName.length !== 0;
   }
-    
+  
   confirmLastName() {
-    if(this.state.lastName.length === 0){
+    if (this.state.lastName.length === 0) {
       this.setState({
-        ErrorLastName: true
-      })
-    }else{
+        ErrorLastName: true,
+      });
+    } else {
       this.setState({
-        ErrorLastName: false
-      })
+        ErrorLastName: false,
+      });
     }
     return this.state.lastName.length !== 0;
   }
-    
+
   confirmEmail() {
-    if(this.state.email.length === 0){
+    if (this.state.email.length === 0) {
       this.setState({
-        ErrorEmail: true
-      })
-    }else{
+        ErrorEmail: true,
+      });
+    } else {
       this.setState({
-        ErrorEmail: false
-      })
+        ErrorEmail: false,
+      });
     }
     return this.state.email.length !== 0;
   }
 
   confirmPhone() {
-    if(this.state.phone.length === 0){
+    if (this.state.phone.length === 0) {
       this.setState({
-        ErrorPhone: true
-      })
-    }else{
+        ErrorPhone: true,
+      });
+    } else {
       this.setState({
-        ErrorPhone: false
-      })
+        ErrorPhone: false,
+      });
     }
     return this.state.phone.length !== 0;
   }
 
   confirmAddress() {
-    if(this.state.street_1.length === 0 ||
-      this.state.city.length === 0 ||
-      this.state.state.length === 0 ||
-      this.state.zip.length === 0 ||
-      this.state.country.length === 0){
+    if (this.state.street_1.length === 0
+      || this.state.city.length === 0
+      || this.state.state.length === 0
+      || this.state.zip.length === 0
+      || this.state.country.length === 0) {
       this.setState({
-        ErrorAddress: true
-      })
+        ErrorAddress: true,
+      });
       return false;
-    }else{
+    } else {
       this.setState({
-        ErrorAddress: false
-      })
+        ErrorAddress: false,
+      });
       return true;
     }
   }
 
   confirmBilling() {
-    if(this.state.sameAsBilling){
+    if (this.state.sameAsBilling) {
       this.setState({
-        ErrorBilling: false
-      })
-      return true
+        ErrorBilling: false,
+      });
+      return true;
     }else if(
-      this.state.billing_first_name.length === 0 ||
-      this.state.billing_last_name.length === 0 ||
-      this.state.billing_phone.length === 0 ||
-      this.state.billing_email.length === 0 ||
-      this.state.billing_city.length === 0 ||
-      this.state.billing_state.length === 0 ||
-      this.state.billing_zip.length === 0 ||
-      this.state.billing_country.length === 0){
+      this.state.billing_first_name.length === 0
+      || this.state.billing_last_name.length === 0
+      || this.state.billing_phone.length === 0
+      || this.state.billing_email.length === 0
+      || this.state.billing_city.length === 0
+      || this.state.billing_state.length === 0
+      || this.state.billing_zip.length === 0
+      || this.state.billing_country.length === 0){
       this.setState({
-        ErrorBilling: true
-      })
+        ErrorBilling: true,
+      });
       return false;
     }else{
       this.setState({
-        ErrorBilling: false
-      })
-      return true
+        ErrorBilling: false,
+      });
+      return true;
     }
   }
 
   formErrors() {
-    this.confirmFirstName() 
-    this.confirmLastName() 
-    this.confirmEmail() 
-    this.confirmPhone() 
-    this.confirmAddress() 
-    this.confirmBilling()
+    this.confirmFirstName();
+    this.confirmLastName();
+    this.confirmEmail();
+    this.confirmPhone();
+    this.confirmAddress();
+    this.confirmBilling();
   }
-    
+
   validateForm() {
     return (
-      this.confirmFirstName() &&
-      this.confirmLastName() &&
-      this.confirmEmail() &&
-      this.confirmPhone() &&
-      this.confirmAddress() &&
-      this.confirmBilling()
-    )
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleCheckBox = event => {
-    this.setState({
-      sameAsBilling: !this.state.sameAsBilling
-    });
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.formErrors()
-    if(this.validateForm()){
-      const { shop } = this.props;
-      shop.checkout.addShippingInfo(this.state);
-      console.log("Added Bill/Ship Info")
-      console.log(this.state)
-      this.props.history.push('/payment')
-    }
+      this.confirmFirstName()
+      && this.confirmLastName()
+      && this.confirmEmail()
+      && this.confirmPhone()
+      && this.confirmAddress()
+      && this.confirmBilling()
+    );
   }
 
   render() {
-    const { basket } = this.props.shop
-    const { shop } = this.props
+    const { basket } = this.props.shop;
+    const { shop } = this.props;
 
-    if (basket.itemCount > 0 ) {
+    if (basket.itemCount > 0) {
       return (
         <div className="container has-text-centered">
           {!shop.user.loggedIn &&

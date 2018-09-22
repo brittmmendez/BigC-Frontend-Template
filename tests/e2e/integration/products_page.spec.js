@@ -13,6 +13,6 @@ describe('Products Page', () => {
     cy.get('img')
     .first('img')
     .click({ force: true });
-    cy.get('.content');
+    cy.get('.button').contains('ADD TO BAG')
   });
 });

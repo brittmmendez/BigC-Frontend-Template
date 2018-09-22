@@ -1,5 +1,4 @@
 import React from 'react';
-// import "../static/Home.css";
 
 const Banner = () => (
   <section className="hero is-dark is-medium">

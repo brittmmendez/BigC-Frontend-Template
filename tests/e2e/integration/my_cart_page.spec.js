@@ -5,9 +5,7 @@ describe('My Cart Page', () => {
       cy.wait(2000);
       cy.viewport('macbook-15');
       cy.get('img').first('img').click();
-      // cy.get('.button.is-dark').click();
       cy.get('.button').contains('ADD TO BAG').click()
-      cy.contains('My Cart (1)');
       cy.get('.navbar-menu').contains('My Cart (1)').click()
       cy.contains('Total')
     });

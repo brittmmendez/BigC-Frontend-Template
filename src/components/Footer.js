@@ -1,5 +1,4 @@
 import React from 'react';
-// import Newsletter from '../containers/Newsletter'
 import { Link } from 'react-router-dom';
 
 const Footer = () => (
