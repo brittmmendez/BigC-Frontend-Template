@@ -1,4 +1,5 @@
-// /* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 // // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 import ProductOptions from './ProductOptions';
@@ -21,7 +22,7 @@ const Product = types
     },
 
     get uniqueIdentifier() {
-      return parseInt(self.id + "" + self.absorbency + "" + self.wing, 10);
+      return parseInt(`${self.id}${self.absorbency}${self.wing}`, 10);
     },
   }));
 

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 @observer
 class OrderConfirmation extends Component {
   render() {
-    const { orderConfirmation } = this.props.shop.checkout;   
+    const { orderConfirmation } = this.props.shop.checkout;
     return (
       <div className="container has-text-centered">
         {orderConfirmation.order_id !== 0

@@ -1,22 +1,27 @@
-import React, { Component } from "react";
-import { observer, inject} from 'mobx-react'
-import "../static/App.css";
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 
-@inject("shop")
+@inject('shop')
 @observer
 export default class PurchaseForm extends Component {
+  static propTypes = {
+    shop: PropTypes.object.isRequired,
+    product: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      product: this.props.product
+      product: this.props.product,
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { shop } = this.props;
     shop.basket.addToBasket({
-      item: this.props.product
+      item: this.props.product,
     });
   }
 
@@ -24,7 +29,7 @@ export default class PurchaseForm extends Component {
     return (
       <div className="form">
         <form onSubmit={this.handleSubmit}>
-          <button class="button is-dark" type="submit">
+          <button className="button is-dark" type="submit">
             ADD TO BAG
           </button>
         </form>

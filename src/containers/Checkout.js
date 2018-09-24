@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TotalAmount from '../components/TotalAmount';
 import ShopProductsBtn from '../components/ShopProductsBtn';
@@ -7,6 +8,11 @@ import ShopProductsBtn from '../components/ShopProductsBtn';
 @inject('shop')
 @observer
 class Checkout extends Component {
+  static propTypes = {
+    shop: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +82,7 @@ class Checkout extends Component {
     }
     return this.state.firstName.length !== 0;
   }
-  
+
   confirmLastName() {
     if (this.state.lastName.length === 0) {
       this.setState({
@@ -126,12 +132,11 @@ class Checkout extends Component {
         ErrorAddress: true,
       });
       return false;
-    } else {
-      this.setState({
-        ErrorAddress: false,
-      });
-      return true;
     }
+    this.setState({
+      ErrorAddress: false,
+    });
+    return true;
   }
 
   confirmBilling() {
@@ -140,7 +145,7 @@ class Checkout extends Component {
         ErrorBilling: false,
       });
       return true;
-    }else if(
+    } if (
       this.state.billing_first_name.length === 0
       || this.state.billing_last_name.length === 0
       || this.state.billing_phone.length === 0
@@ -148,17 +153,16 @@ class Checkout extends Component {
       || this.state.billing_city.length === 0
       || this.state.billing_state.length === 0
       || this.state.billing_zip.length === 0
-      || this.state.billing_country.length === 0){
+      || this.state.billing_country.length === 0) {
       this.setState({
         ErrorBilling: true,
       });
       return false;
-    }else{
-      this.setState({
-        ErrorBilling: false,
-      });
-      return true;
     }
+    this.setState({
+      ErrorBilling: false,
+    });
+    return true;
   }
 
   formErrors() {
@@ -188,344 +192,364 @@ class Checkout extends Component {
     if (basket.itemCount > 0) {
       return (
         <div className="container has-text-centered">
-          {!shop.user.loggedIn &&
-          <p className="has-text-right"> Continue as Guest or <strong> <Link to="/login"> Log In </Link> </strong> </p>}
-          
+          {!shop.user.loggedIn
+          && (
+          <p className="has-text-right">
+            {' '}
+Continue as Guest or
+            <strong>
+              {' '}
+              <Link to="/login"> Log In </Link>
+              {' '}
+            </strong>
+            {' '}
+
+          </p>
+          )}
+
           <TotalAmount />
-      
+
           <div className="container has-text-centered">
             <form onSubmit={this.handleSubmit}>
               <h1> Shipping Information </h1>
-              <div class="field">
-                <label class="label">First Name</label>
-                {this.state.ErrorFirstName && <p class="help is-danger">Please Enter First Name!</p>}
-                <div class="control has-icons-left has-icons-right">
-                  <input 
-                    autoFocus
+              <div className="field">
+                <label className="label">First Name</label>
+                {this.state.ErrorFirstName && <p className="help is-danger">Please Enter First Name!</p>}
+                <div className="control has-icons-left has-icons-right">
+                  <input
                     id="firstName"
-                    className={this.state.ErrorFirstName ? "input is-danger" : "input"}
-                    type="text" 
-                    placeholder="First Name" 
-                    value={this.state.firstName}                    
+                    className={this.state.ErrorFirstName ? 'input is-danger' : 'input'}
+                    type="text"
+                    placeholder="First Name"
+                    value={this.state.firstName}
                     onChange={this.handleChange}
                   />
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-user" />
                   </span>
-                  {this.state.ErrorFirstName && <span class="icon is-small is-right">
-                    <i className= "fas fa-exclamation-triangle"></i>
-                  </span>}
+                  {this.state.ErrorFirstName && (
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-exclamation-triangle" />
+                  </span>
+                  )}
                 </div>
               </div>
 
-              <div class="field">
-                <label class="label">Last Name</label>
-                {this.state.ErrorLastName && <p class="help is-danger">Please Enter Last Name!</p>}
-                <div class="control has-icons-left has-icons-right">
-                  <input 
+              <div className="field">
+                <label className="label">Last Name</label>
+                {this.state.ErrorLastName && <p className="help is-danger">Please Enter Last Name!</p>}
+                <div className="control has-icons-left has-icons-right">
+                  <input
                     id="lastName"
-                    className={this.state.ErrorLastName ? "input is-danger" : "input"}
-                    type="text" 
-                    placeholder="Last Name" 
+                    className={this.state.ErrorLastName ? 'input is-danger' : 'input'}
+                    type="text"
+                    placeholder="Last Name"
                     value={this.state.lastName}
                     onChange={this.handleChange}
                   />
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-user" />
                   </span>
-                          
-                  {this.state.ErrorLastName && <span class="icon is-small is-right">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </span>}
-                  </div>
+
+                  {this.state.ErrorLastName && (
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-exclamation-triangle" />
+                  </span>
+                  )}
+                </div>
               </div>
 
-              <div className={this.state.ErrorAddress ? "" : ""}>
-                <div class="field">
-                  <label class="label">Address</label>
-                  {this.state.ErrorAddress && <p class="help is-danger">Please Correct Address!</p>}
-                  <div class="control has-icons-right">
-                    <input 
+              <div className={this.state.ErrorAddress ? '' : ''}>
+                <div className="field">
+                  <label className="label">Address</label>
+                  {this.state.ErrorAddress && <p className="help is-danger">Please Correct Address!</p>}
+                  <div className="control has-icons-right">
+                    <input
                       id="street_1"
                       className="input"
-                      type="text" 
-                      placeholder="Street 1" 
+                      type="text"
+                      placeholder="Street 1"
                       value={this.state.street_1}
                       onChange={this.handleChange}
-                    />       
+                    />
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control has-icons-right">
-                    <input 
-                        id="street_2"
-                        className="input"
-                        type="text" 
-                        placeholder="Street 2" 
-                        value={this.state.street_2}
-                        onChange={this.handleChange}
-                    />       
+                <div className="field">
+                  <div className="control has-icons-right">
+                    <input
+                      id="street_2"
+                      className="input"
+                      type="text"
+                      placeholder="Street 2"
+                      value={this.state.street_2}
+                      onChange={this.handleChange}
+                    />
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control has-icons-right">
-                    <input 
+                <div className="field">
+                  <div className="control has-icons-right">
+                    <input
                       id="city"
                       className="input"
-                      type="text" 
-                      placeholder="City" 
+                      type="text"
+                      placeholder="City"
                       value={this.state.city}
                       onChange={this.handleChange}
-                    />       
+                    />
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control has-icons-right">
-                    <input 
+                <div className="field">
+                  <div className="control has-icons-right">
+                    <input
                       id="state"
                       className="input"
-                      type="text" 
-                      placeholder="State" 
+                      type="text"
+                      placeholder="State"
                       value={this.state.state}
                       onChange={this.handleChange}
-                    />       
+                    />
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control has-icons-right">
-                    <input 
+                <div className="field">
+                  <div className="control has-icons-right">
+                    <input
                       id="zip"
                       className="input"
-                      type="text" 
-                      placeholder="Zip Code" 
+                      type="text"
+                      placeholder="Zip Code"
                       value={this.state.zip}
                       onChange={this.handleChange}
-                    />       
+                    />
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control has-icons-right">
-                    <input 
+                <div className="field">
+                  <div className="control has-icons-right">
+                    <input
                       id="country"
                       className="input"
-                      type="text" 
-                      placeholder="Country" 
+                      type="text"
+                      placeholder="Country"
                       value={this.state.country}
                       onChange={this.handleChange}
-                    />       
+                    />
                   </div>
                 </div>
               </div>
-                <div class="field">
-                    <label class="label">Email</label>
-                    {this.state.ErrorEmail && <p class="help is-danger">Please Enter Valid Email!</p>}
-                    <div class="control has-icons-left has-icons-right">
-                        <input 
-                            id="email"
-                            className={this.state.ErrorEmail ? "input is-danger" : "input"}
-                            type="email" 
-                            placeholder="Email" 
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        {this.state.ErrorEmail && <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>}
-                    </div>
+              <div className="field">
+                <label className="label">Email</label>
+                {this.state.ErrorEmail && <p className="help is-danger">Please Enter Valid Email!</p>}
+                <div className="control has-icons-left has-icons-right">
+                  <input
+                    id="email"
+                    className={this.state.ErrorEmail ? 'input is-danger' : 'input'}
+                    type="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-envelope" />
+                  </span>
+                  {this.state.ErrorEmail && (
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-exclamation-triangle" />
+                  </span>
+                  )}
                 </div>
+              </div>
 
-                <div class="field">
-                    <label class="label">Phone</label>
-                    {this.state.ErrorPhone && <p class="help is-danger">Please Enter Valid Phone Number!</p>}
-                    <div class="control has-icons-left has-icons-right">
-                        <input 
-                            id="phone"
-                            className={this.state.ErrorPhone ? "input is-danger" : "input"}
-                            type="tel" 
-                            placeholder="Phone Number" 
-                            value={this.state.phone}
-                            onChange={this.handleChange}
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-phone"></i>
-                        </span>
-                        {this.state.ErrorPhone && <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>}
-                    </div>
+              <div className="field">
+                <label className="label">Phone</label>
+                {this.state.ErrorPhone && <p className="help is-danger">Please Enter Valid Phone Number!</p>}
+                <div className="control has-icons-left has-icons-right">
+                  <input
+                    id="phone"
+                    className={this.state.ErrorPhone ? 'input is-danger' : 'input'}
+                    type="tel"
+                    placeholder="Phone Number"
+                    value={this.state.phone}
+                    onChange={this.handleChange}
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-phone" />
+                  </span>
+                  {this.state.ErrorPhone && (
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-exclamation-triangle" />
+                  </span>
+                  )}
                 </div>
+              </div>
 
-                <label class="checkbox">
-                    <input type="checkbox" value="sameAsBilling" id="sameAsBilling" checked={this.state.sameAsBilling} onChange={this.handleCheckBox}/>
+              <label className="checkbox">
+                <input type="checkbox" value="sameAsBilling" id="sameAsBilling" checked={this.state.sameAsBilling} onChange={this.handleCheckBox} />
                     Billing address same as shipping
-                </label>  
+              </label>
 
-                {!this.state.sameAsBilling && 
-                <div className={this.state.ErrorBilling ? "is-danger" : ""}>
-                    <div class="field">
-                        <label class="label">Billing Information</label>
-                        {this.state.ErrorBilling && <p class="help is-danger">Please Correct Billing Address Information!</p>}
-                        <div class="control has-icons-left has-icons-right">
-                            <input 
-                                id="billing_first_name"
-                                className="input"
-                                type="text" 
-                                placeholder="First Name" 
-                                value={this.state.billing_first_name}                    
-                                onChange={this.handleChange}
-                            />
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-                        </div>
+              {!this.state.sameAsBilling
+                && (
+                <div className={this.state.ErrorBilling ? 'is-danger' : ''}>
+                  <div className="field">
+                    <label className="label">Billing Information</label>
+                    {this.state.ErrorBilling && <p className="help is-danger">Please Correct Billing Address Information!</p>}
+                    <div className="control has-icons-left has-icons-right">
+                      <input
+                        id="billing_first_name"
+                        className="input"
+                        type="text"
+                        placeholder="First Name"
+                        value={this.state.billing_first_name}
+                        onChange={this.handleChange}
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-user" />
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                        <div class="control has-icons-left has-icons-right">
-                            <input 
-                                id="billing_last_name"
-                                className="input"
-                                type="text" 
-                                placeholder="Last Name" 
-                                value={this.state.billing_last_name}
-                                onChange={this.handleChange}
-                            />
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-                        </div>
+                  <div className="field">
+                    <div className="control has-icons-left has-icons-right">
+                      <input
+                        id="billing_last_name"
+                        className="input"
+                        type="text"
+                        placeholder="Last Name"
+                        value={this.state.billing_last_name}
+                        onChange={this.handleChange}
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-user" />
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_street_1"
-                                className="input"
-                                type="text" 
-                                placeholder="Street 1" 
-                                value={this.state.billing_street_1}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_street_1"
+                        className="input"
+                        type="text"
+                        placeholder="Street 1"
+                        value={this.state.billing_street_1}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_street_2"
-                                className="input"
-                                type="text" 
-                                placeholder="Street 2" 
-                                value={this.state.billing_street_2}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_street_2"
+                        className="input"
+                        type="text"
+                        placeholder="Street 2"
+                        value={this.state.billing_street_2}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_city"
-                                className="input"
-                                type="text" 
-                                placeholder="City" 
-                                value={this.state.billing_city}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_city"
+                        className="input"
+                        type="text"
+                        placeholder="City"
+                        value={this.state.billing_city}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_state"
-                                className="input"
-                                type="text" 
-                                placeholder="State" 
-                                value={this.state.billing_state}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_state"
+                        className="input"
+                        type="text"
+                        placeholder="State"
+                        value={this.state.billing_state}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_zip"
-                                className="input"
-                                type="text" 
-                                placeholder="Zip Code" 
-                                value={this.state.billing_zip}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_zip"
+                        className="input"
+                        type="text"
+                        placeholder="Zip Code"
+                        value={this.state.billing_zip}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <div class="control has-icons-right">
-                            <input 
-                                id="billing_country"
-                                className="input"
-                                type="text" 
-                                placeholder="Country" 
-                                value={this.state.billing_country}
-                                onChange={this.handleChange}
-                            />       
-                        </div>
+                  </div>
+                  <div className="field">
+                    <div className="control has-icons-right">
+                      <input
+                        id="billing_country"
+                        className="input"
+                        type="text"
+                        placeholder="Country"
+                        value={this.state.billing_country}
+                        onChange={this.handleChange}
+                      />
                     </div>
-                    <div class="field">
-                        <label class="label">Email</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input 
-                            id="billing_email"
-                            className="input"
-                            type="email" 
-                            placeholder="Email" 
-                            value={this.state.billing_email}
-                            onChange={this.handleChange}
-                            />
-                            <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                            </span>
-                        </div>
+                  </div>
+                  <div className="field">
+                    <label className="label">Email</label>
+                    <div className="control has-icons-left has-icons-right">
+                      <input
+                        id="billing_email"
+                        className="input"
+                        type="email"
+                        placeholder="Email"
+                        value={this.state.billing_email}
+                        onChange={this.handleChange}
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-envelope" />
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                        <label class="label">Phone</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input 
-                            id="billing_phone"
-                            className="input"
-                            type="tel" 
-                            placeholder="Phone Number" 
-                            value={this.state.billing_phone}
-                            onChange={this.handleChange}
-                            />
-                            <span class="icon is-small is-left">
-                            <i class="fas fa-phone"></i>
-                            </span>     
-                        </div>
+                  <div className="field">
+                    <label className="label">Phone</label>
+                    <div className="control has-icons-left has-icons-right">
+                      <input
+                        id="billing_phone"
+                        className="input"
+                        type="tel"
+                        placeholder="Phone Number"
+                        value={this.state.billing_phone}
+                        onChange={this.handleChange}
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-phone" />
+                      </span>
                     </div>
-                </div>} 
+                  </div>
+                </div>
+                )}
 
-                <div class="field">
-                  <p class="control has-text-centered">
-                        <button class="button is-dark" type="submit">
+              <div className="field">
+                <p className="control has-text-centered">
+                  <button className="button is-dark" type="submit">
                             Add Payment
-                        </button>
-                    </p>
-                </div>        
+                  </button>
+                </p>
+              </div>
             </form>
           </div>
           <Link to="/my-cart"> Modify Cart</Link>
-      </div>)
-    }else{
-      return (
-        <div className="container has-text-centered">
-          <h3>Sorry, you have no items in your cart yet!</h3>
-          < ShopProductsBtn/>
-        </div>
-      )
+        </div>);
     }
+    return (
+      <div className="container has-text-centered">
+        <h3>Sorry, you have no items in your cart yet!</h3>
+        <ShopProductsBtn />
+      </div>
+    );
   }
 }
-  
+
 export default Checkout;

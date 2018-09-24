@@ -1,5 +1,6 @@
-// /* eslint-disable no-param-reassign */
-// // MobX-State-Tree uses reassignment to self. Disable that rule for model files
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
+// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 import BillingInfo from './BillingInfo';
 import ShippingInfo from './ShippingInfo';
@@ -27,7 +28,7 @@ const Checkout = types
       };
       self.shippingInfo = (infoObj);
       if (info.sameAsBilling) {
-        self.billingInfo=(infoObj);
+        self.billingInfo = (infoObj);
       } else {
         const billingInfoObj = {
           first_name: info.billing_first_name,
@@ -41,7 +42,7 @@ const Checkout = types
           phone: info.billing_phone,
           email: info.billing_email,
         };
-        self.billingInfo=(billingInfoObj);
+        self.billingInfo = (billingInfoObj);
       }
     },
   }));

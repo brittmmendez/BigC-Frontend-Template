@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types, flow, getParent } from 'mobx-state-tree';
 

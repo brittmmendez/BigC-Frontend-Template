@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import DevTools from 'mobx-react-devtools';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
-import Routes from '../Routes';
+import PropTypes from 'prop-types';
+import Routes from './Routes';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 @inject('shop')
 @observer
 class App extends Component {
+  static propTypes = {
+    shop: PropTypes.object.isRequired,
+  };
+
   render() {
     return (
       <Router>
