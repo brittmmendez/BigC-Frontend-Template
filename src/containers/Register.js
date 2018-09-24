@@ -41,6 +41,7 @@ export default class Register extends Component {
     if (this.validateForm()) {
       this.props.shop.user.register(this.state);
       this.props.history.push('/account');
+      this.props.history.push('/login');
     }
   }
 

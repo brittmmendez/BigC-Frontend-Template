@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import PurchaseForm from '../containers/PurchaseForm';
+import PurchaseForm from './PurchaseForm';
 
 @inject('shop')
 @observer

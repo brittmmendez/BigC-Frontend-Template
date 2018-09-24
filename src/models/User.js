@@ -89,12 +89,12 @@ const User = types
           let result = response;
           result = yield result.json();
           console.log('created');
-          self.id = result.customer.id;
-          self.first_name = result.customer.first_name;
-          self.last_name = result.customer.last_name;
-          self.email = userInfo.email;
-          self.loggedIn = true;
-          self.token = result.token;
+          // self.id = result.customer.id;
+          // self.first_name = result.customer.first_name;
+          // self.last_name = result.customer.last_name;
+          // self.email = userInfo.email;
+          // self.loggedIn = true;
+          // self.token = result.token;
           console.log(result);
         }
       } catch (err) {

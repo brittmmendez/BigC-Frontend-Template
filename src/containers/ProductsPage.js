@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router-dom';
-import ProductItemView from './ProductItemView';
+import ProductItemView from '../components/ProductItemView';
 import ProductShow from './ProductShow';
 
 @inject('shop')

@@ -1,8 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from '../components/Home';
-import ProductsPage from '../components/ProductsPage';
-import ProductShow from '../components/ProductShow';
+import Home from './Home';
+import ProductsPage from './ProductsPage';
+import ProductShow from './ProductShow';
+import NotFound from './NotFound';
+import Login from './Login';
+import Register from './Register';
+import Account from './Account';
+import OrderConfirmation from './OrderConfirmation';
+import Payment from './Payment';
+import MyCart from './MyCart';
+import Checkout from './Checkout';
+import Help from './Help';
+import ContactUs from './ContactUs';
 import Product1 from '../components/product/Product1';
 import Product2 from '../components/product/Product2';
 import Product3 from '../components/product/Product3';
@@ -11,16 +21,6 @@ import About1 from '../components/about/About1';
 import About2 from '../components/about/About2';
 import About3 from '../components/about/About3';
 import About4 from '../components/about/About4';
-import NotFound from './NotFound';
-import Login from './Login';
-import Register from './Register';
-import Account from '../components/Account';
-import OrderConfirmation from '../components/OrderConfirmation';
-import Payment from './Payment';
-import MyCart from './MyCart';
-import Checkout from './Checkout';
-import Help from '../components/Help';
-import ContactUs from '../components/ContactUs';
 
 const Routes = () => (
   <Switch>

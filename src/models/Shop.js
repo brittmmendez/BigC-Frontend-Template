@@ -27,21 +27,37 @@ const Shop = types
       }
     }),
 
-    prepItems() {
-      const items = self.basket.items.map(item => (
-        {
-          product_id: item.item,
-          quantity: item.quantity,
-        }
-      ));
-      console.log('Prep Items');
-      console.log([...items]);
-      return items;
-    },
+    proccessOrder: flow(function* proccessOrder() {
+      console.log('Prepping Order!');
+      const request = self.prepOrder();
+      const headersreq = {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${self.user.token}`,
+      };
+      debugger;
+      try {
+        const response = yield fetch(`${self.apiUrl}/orders`, {
+          method: 'POST',
+          headers: headersreq,
+          body: JSON.stringify(request),
+        });
+        debugger;
+        let json = response;
+        json = yield json.json();
+        console.log('Order Confirmed');
+        console.log(json);
+        self.createOrderConfirmation(json);
+        self.basket.clearBasket();
+      } catch (err) {
+        debugger;
+        console.log(`ERROR!!!!${err}`);
+      }
+    }),
 
     prepOrder() {
       const request = {
-        customer_id: 0,
+        customer_id: self.user.id,
         order_total: {
           subtotal_ex_tax: parseFloat(self.basket.subtotal_ex_tax),
           subtotal_inc_tax: parseFloat(self.basket.subtotal_inc_tax),
@@ -81,29 +97,17 @@ const Shop = types
       return request;
     },
 
-    proccessOrder: flow(function* proccessOrder() {
-      console.log('Prepping Order!');
-      const request = self.prepOrder();
-
-      try {
-        const response = yield fetch(`${self.apiUrl}/orders`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(request),
-        });
-        let json = response;
-        json = yield json.json();
-        console.log('Order Confirmed');
-        console.log(json);
-        self.createOrderConfirmation(json);
-        self.basket.clearBasket();
-      } catch (err) {
-        console.log(`ERROR!!!!${err}`);
-      }
-    }),
+    prepItems() {
+      const items = self.basket.items.map(item => (
+        {
+          product_id: item.item,
+          quantity: item.quantity,
+        }
+      ));
+      console.log('Prep Items');
+      console.log([...items]);
+      return items;
+    },
 
     createOrderConfirmation(json) {
       const confirmation = {
