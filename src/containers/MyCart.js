@@ -10,7 +10,6 @@ import ShopProductsBtn from '../components/ShopProductsBtn';
 class MyCart extends Component {
   static propTypes = {
     shop: PropTypes.object.isRequired,
-    basket: PropTypes.object.isRequired,
   };
 
   render() {
@@ -22,8 +21,8 @@ class MyCart extends Component {
           <div className="content">
             <h1>My Cart</h1>
             {basket.items.map(item => (
-              <div>
-                <Link key={item.id} to={`/products-page/${item.item}`}>
+              <div key={item.id}>
+                <Link to={`/products-page/${item.item}`}>
                   <h4>
                     {item.name}
                   </h4>

@@ -26,7 +26,7 @@ class Account extends Component {
         <div>
           <h1>Please sign in</h1>
           <h3>to view account</h3>
-          <Link class="button is-dark" to="login">
+          <Link className="button is-dark" to="login">
             <span>Log In</span>
           </Link>
         </div>

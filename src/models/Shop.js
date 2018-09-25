@@ -30,8 +30,9 @@ const Shop = types
     proccessOrder: flow(function* proccessOrder() {
       console.log('Prepping Order!');
       const request = self.prepOrder();
-
+      debugger;
       try {
+        debugger;
         // if failed to fecth run in terminal:
         // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
         const response = yield fetch(`${self.apiUrl}/orders`, {
@@ -43,6 +44,7 @@ const Shop = types
           },
           body: JSON.stringify(request),
         });
+        debugger;
         let json = response;
         json = yield json.json();
         console.log('Order Confirmed');

@@ -27,7 +27,7 @@ class NavBar extends Component {
         <Banner />
         <nav className="navbar is-light is-mobile">
           <div className="navbar-brand">
-            <Link class="navbar-item" to="/">
+            <Link className="navbar-item" to="/">
               <i className="fas fa-home fa-2x" />
             </Link>
             <div className="navbar-burger burger" onClick={this.toggleNav}>
@@ -44,20 +44,20 @@ class NavBar extends Component {
                   Products
                 </p>
                 <div className="navbar-dropdown is-boxed">
-                  <Link class="navbar-item" to="/product1">
+                  <Link className="navbar-item" to="/product1">
                     Product1
                   </Link>
-                  <Link class="navbar-item" to="/product2">
+                  <Link className="navbar-item" to="/product2">
                     Product2
                   </Link>
-                  <Link class="navbar-item" to="/product3">
+                  <Link className="navbar-item" to="/product3">
                     Product3
                   </Link>
-                  <Link class="navbar-item" to="/product4">
+                  <Link className="navbar-item" to="/product4">
                     Product4
                   </Link>
                   <hr className="navbar-divider" />
-                  <Link class="navbar-item" to="/products-page">
+                  <Link className="navbar-item" to="/products-page">
                     Shop All
                   </Link>
                 </div>
@@ -67,20 +67,20 @@ class NavBar extends Component {
                   About
                 </p>
                 <div className="navbar-dropdown is-boxed">
-                  <Link class="navbar-item" to="/about1">
+                  <Link className="navbar-item" to="/about1">
                     About1
                   </Link>
-                  <Link class="navbar-item" to="/about2">
+                  <Link className="navbar-item" to="/about2">
                     About2
                   </Link>
-                  <Link class="navbar-item" to="/about3">
+                  <Link className="navbar-item" to="/about3">
                     About3
                   </Link>
-                  <Link class="navbar-item" to="/about4">
+                  <Link className="navbar-item" to="/about4">
                     About4
                   </Link>
                   <hr className="navbar-divider" />
-                  <Link class="navbar-item" to="/help">
+                  <Link className="navbar-item" to="/help">
                     Help
                   </Link>
                 </div>
@@ -91,7 +91,7 @@ class NavBar extends Component {
               <div className="navbar-item">
                 <div className="field is-grouped">
                   <p className="control">
-                    <Link class="bd-tw-button button" to="/my-cart">
+                    <Link className="bd-tw-button button" to="/my-cart">
                       <span className="icon">
                         <i className="fas fa-shopping-cart" />
                       </span>
@@ -105,13 +105,13 @@ class NavBar extends Component {
                   <p className="control">
                     {!shop.user.loggedIn
                       && (
-                      <Link class="bd-tw-button button" to="/login">
+                      <Link className="bd-tw-button button" to="/login">
                         <span>Log In</span>
                       </Link>
                       )}
                     {shop.user.loggedIn
                       && (
-                      <Link class="bd-tw-button button" to="/account">
+                      <Link className="bd-tw-button button" to="/account">
                         <span>My Account</span>
                       </Link>
                       )}
