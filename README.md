@@ -105,6 +105,7 @@ Asynchronous actions in Mobx-State-Tree are written by using generators and alwa
 ## Adding Components
 ## Adding Containers and Routes
 ## Test Coverage
+Currently using [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-Nutshell) for end-to-end testing.<br/>
 Navigate to tests/e2e/integration:
 - home_page.spec.js
 - login_spec.js
@@ -114,7 +115,7 @@ Navigate to tests/e2e/integration:
 - registration_spec.js
 
 ## Using CSS
-This app currently uses [Bulma](https://bulma.io/documentation/).  There are no custom CSS files being used at the moment.  However, you can create your own, continue to use Bulma, or use a differen styling option of your choice. 
+This app currently uses [Bulma](https://bulma.io/documentation/).  There are no custom CSS files being used at the moment.  However, you can create your own, continue to use Bulma, or use a differen styling option of your choice. To use a different styling option, remove classNames in components and Bulma stylesheet link in index.html.
 
 ## Contribute
 This template is a starting point that has a lot of room for growth as we learn more about BigCommerce and what it can do. Feel free to create a pull request or create an issue if you find a bug or have an idea on how to improve the template.

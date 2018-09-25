@@ -30,19 +30,19 @@ const Shop = types
     proccessOrder: flow(function* proccessOrder() {
       console.log('Prepping Order!');
       const request = self.prepOrder();
-      const headersreq = {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${self.user.token}`,
-      };
-      debugger;
+
       try {
+        // if failed to fecth run in terminal:
+        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
         const response = yield fetch(`${self.apiUrl}/orders`, {
           method: 'POST',
-          headers: headersreq,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${self.user.token}`,
+          },
           body: JSON.stringify(request),
         });
-        debugger;
         let json = response;
         json = yield json.json();
         console.log('Order Confirmed');
@@ -50,7 +50,6 @@ const Shop = types
         self.createOrderConfirmation(json);
         self.basket.clearBasket();
       } catch (err) {
-        debugger;
         console.log(`ERROR!!!!${err}`);
       }
     }),
@@ -98,6 +97,7 @@ const Shop = types
     },
 
     prepItems() {
+      // add additional product info ex. product option id's and values
       const items = self.basket.items.map(item => (
         {
           product_id: item.item,
