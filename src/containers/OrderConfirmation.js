@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import LoadingView from '../components/LodaingView';
 
 @inject('shop')
 @observer
 class OrderConfirmation extends Component {
   render() {
     const { orderConfirmation } = this.props.shop.checkout;
-    return (
-      <div className="container has-text-centered">
-        {orderConfirmation.order_id !== 0
-          && (
+
+    if (orderConfirmation.order_id !== 0) {
+      return (
+        <div className="container has-text-centered">
           <div className="content">
             <h1>
               Thanks
@@ -37,7 +38,12 @@ class OrderConfirmation extends Component {
               {parseInt(orderConfirmation.total, 10).toFixed(2)}
             </p>
           </div>
-          )}
+        </div>
+      );
+    }
+    return (
+      <div className="spinner-container">
+        <LoadingView />
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router-dom';
 import ProductItemView from '../components/ProductItemView';
 import ProductShow from './ProductShow';
+import LoadingView from '../components/LodaingView';
 
 @inject('shop')
 @observer
@@ -11,18 +12,25 @@ class ProductsPage extends Component {
     const { shop, match } = this.props;
     const items = shop.products.data;
 
-    return (
-      <div className="container has-text-centered">
-        <Switch>
-          <div className="content">
-            <div className="columns is-multiline">
-              {items.map(product => (
-                <ProductItemView key={product.id} product={product} match={match} />
-              ))}
+    if (shop.products.data.length > 0) {
+      return (
+        <div className="container has-text-centered">
+          <Switch>
+            <div className="content">
+              <div className="columns is-multiline">
+                {items.map(product => (
+                  <ProductItemView key={product.id} product={product} match={match} />
+                ))}
+              </div>
             </div>
-          </div>
-          <Route exact path={`/${match.url}/:productId`} component={ProductShow} />
-        </Switch>
+            <Route exact path={`/${match.url}/:productId`} component={ProductShow} />
+          </Switch>
+        </div>
+      );
+    }
+    return (
+      <div className="spinner-container">
+        <LoadingView />
       </div>
     );
   }
