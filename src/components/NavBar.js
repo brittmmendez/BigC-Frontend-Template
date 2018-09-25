@@ -20,17 +20,29 @@ class NavBar extends Component {
     }));
   }
 
+  openNav = () => {
+    this.setState({
+      isActive: true,
+    });
+  }
+
+  closeNav = () => {
+    this.setState({
+      isActive: false,
+    });
+  }
+
   render() {
     const { shop } = this.props;
     return (
       <div className="is-fixed-top">
         <Banner />
-        <nav className="navbar is-light is-mobile">
+        <nav className="navbar is-light">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
               <i className="fas fa-home fa-2x" />
             </Link>
-            <div className="navbar-burger burger" onClick={this.toggleNav}>
+            <div className="navbar-burger burger" data-target="navMenu" onClick={this.openNav}>
               <span />
               <span />
               <span />
@@ -43,7 +55,7 @@ class NavBar extends Component {
                 <p className="navbar-link" href="#">
                   Products
                 </p>
-                <div className="navbar-dropdown is-boxed">
+                <div className="navbar-dropdown is-boxed" onClick={this.closeNav}>
                   <Link className="navbar-item" to="/product1">
                     Product1
                   </Link>
@@ -66,7 +78,7 @@ class NavBar extends Component {
                 <p className="navbar-link" to="#">
                   About
                 </p>
-                <div className="navbar-dropdown is-boxed">
+                <div className="navbar-dropdown is-boxed" onClick={this.closeNav}>
                   <Link className="navbar-item" to="/about1">
                     About1
                   </Link>
@@ -89,7 +101,7 @@ class NavBar extends Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <div className="field is-grouped">
+                <div className="field is-grouped" onClick={this.closeNav}>
                   <p className="control">
                     <Link className="bd-tw-button button" to="/my-cart">
                       <span className="icon">
