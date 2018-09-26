@@ -195,15 +195,13 @@ class Checkout extends Component {
           {!shop.user.loggedIn
           && (
           <p className="has-text-right">
+            You must
             {' '}
-Continue as Guest or
             <strong>
-              {' '}
               <Link to="/login"> Log In </Link>
-              {' '}
             </strong>
             {' '}
-
+            to Checkout.
           </p>
           )}
 
@@ -533,7 +531,11 @@ Continue as Guest or
 
               <div className="field">
                 <p className="control has-text-centered">
-                  <button className="button is-dark" type="submit">
+                  <button
+                    className="button is-dark"
+                    type="submit"
+                    disabled={!shop.user.loggedIn}
+                  >
                             Add Payment
                   </button>
                 </p>

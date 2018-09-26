@@ -1,7 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and utilizes [Mobx-State-Tree](https://github.com/mobxjs/mobx-state-tree) for state management.
 
-Below you will find some information on how to perform common tasks.<br/>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Table of Contents
 
@@ -13,8 +11,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [npm run build](#npm-run-build)
 - [Setup](#setup)
 - [Fetching Requests](#fetching-requests)
-- [Adding Components](#adding-components)
-- [Adding Containers and Routes](#adding-containers-and-routes)
+- [Components](#components)
+- [Containers and Routes](containers-and-routes)
 - [Using CSS](#using-css)
 - [Questions? Feedback? Contribute?](#contribute)
 
@@ -25,12 +23,10 @@ After creation, your project should look like this:
 
 ```
 my-app/
-  README.md
+  config/
   node_modules/
-  package.json
   public/
-    index.html
-    favicon.ico
+  scripts/
   src/
     components/
     containers/
@@ -39,7 +35,12 @@ my-app/
     index.js
   tests/
     e2e/
-    unit/  
+    unit/
+  .eslintrc
+  cypress.json
+  package.json  
+  README.md
+  tsconfig.json
 ```
 
 For the project to build, **these files must exist with exact filenames**:
@@ -102,8 +103,20 @@ Asynchronous actions in Mobx-State-Tree are written by using generators and alwa
 3. logIn() - uses apiUrl/login to make a post request
 4. register() - uses apiUrl/register to make a post request
 
-## Adding Components
-## Adding Containers and Routes
+## Components
+#### `Adding`
+You can create as many components as you would like in the components folder.
+
+#### `Removing`
+Delete the file and be sure to remove the import in any other files that referenced it. 
+
+## Containers and Routes
+#### `Adding`
+Create the container in the containers folder, be sure to import the container into /src/containers/Routes.js and create the route needed.
+
+#### `Removing`
+Delete the file and be sure to remove the import in any other files that referenced it. 
+
 ## Test Coverage
 Currently using [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-Nutshell) for end-to-end testing.<br/>
 Navigate to tests/e2e/integration:
