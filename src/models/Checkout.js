@@ -1,6 +1,6 @@
+// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 import BillingInfo from './BillingInfo';
 import ShippingInfo from './ShippingInfo';
@@ -13,6 +13,7 @@ const Checkout = types
     orderConfirmation: types.optional(OrderConfirmation, {}),
   })
   .actions(self => ({
+    // adds shipping info from checkout form
     addShippingInfo(info) {
       const infoObj = {
         first_name: info.firstName,
@@ -27,9 +28,11 @@ const Checkout = types
         email: info.email,
       };
       self.shippingInfo = (infoObj);
+      // set billing info if it's the is same as shipping
       if (info.sameAsBilling) {
         self.billingInfo = (infoObj);
       } else {
+        // pulls pulling info from checkout form if not same as billing and sets it.
         const billingInfoObj = {
           first_name: info.billing_first_name,
           last_name: info.billing_last_name,

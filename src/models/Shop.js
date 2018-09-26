@@ -1,12 +1,11 @@
+// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow } from 'mobx-state-tree';
-// import User from './User';
 import Products from './Products';
 import Basket from './Basket';
 import Checkout from './Checkout';
 import User from './User';
-
 
 const Shop = types
   .model({
@@ -17,21 +16,21 @@ const Shop = types
     apiUrl: 'https://my-mix-api.herokuapp.com/api',
   })
   .actions(self => ({
+    // initial fetch all products request
     getProducts: flow(function* getProducts() {
       if (self.products.productCount === 0) {
         const response = yield fetch(`${self.apiUrl}/products`);
         const json = yield response.json();
-        console.log('Loaded Items');
         console.log(json);
         self.products.data = json;
       }
     }),
 
     proccessOrder: flow(function* proccessOrder() {
-      console.log('Prepping Order!');
+      // sets billing/shipping info and products to correct request format
       const request = self.prepOrder();
       try {
-        // if failed to fecth run in terminal:
+        // (CORS) error run in terminal:
         // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
         const response = yield fetch(`${self.apiUrl}/orders`, {
           method: 'POST',
@@ -46,7 +45,9 @@ const Shop = types
         json = yield json.json();
         console.log('Order Confirmed');
         console.log(json);
+        // set orderConfirmation model for confirmation container
         self.createOrderConfirmation(json);
+        // clears basket if request is successful
         self.basket.clearBasket();
       } catch (err) {
         console.log(err);
@@ -55,6 +56,7 @@ const Shop = types
 
     prepOrder() {
       const request = {
+        // setting user id billing/shipping info
         customer_id: self.user.id,
         order_total: {
           subtotal_ex_tax: parseFloat(self.basket.subtotal_ex_tax),
@@ -88,6 +90,7 @@ const Shop = types
             email: self.checkout.shippingInfo.email,
           },
         ],
+        // put cart products in correct format for request to BigC API
         products: self.prepItems(),
       };
       console.log('Order Request Prepped');
@@ -96,7 +99,7 @@ const Shop = types
     },
 
     prepItems() {
-      // add additional product info ex. product option id's and values
+      // add additional product info based on your products ex. product option id's and values
       const items = self.basket.items.map(item => (
         {
           product_id: item.item,
@@ -109,6 +112,7 @@ const Shop = types
     },
 
     createOrderConfirmation(json) {
+      // order confirmation info needed for container
       const confirmation = {
         order_id: json.id,
         customer_id: json.customer_id,

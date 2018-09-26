@@ -1,6 +1,6 @@
+// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types, flow, getParent } from 'mobx-state-tree';
 
 const User = types
@@ -84,15 +84,16 @@ const User = types
           const result = yield response.json();
           console.log(result);
         }
-
+        // response doesn't give token which is needed for login.
+        // redirect to login page to login in and get token upon success
         if (response.status === 201) {
           let result = response;
           result = yield result.json();
           console.log('created');
-          // self.id = result.customer.id;
-          // self.first_name = result.customer.first_name;
-          // self.last_name = result.customer.last_name;
-          // self.email = userInfo.email;
+          self.id = result.customer.id;
+          self.first_name = result.customer.first_name;
+          self.last_name = result.customer.last_name;
+          self.email = userInfo.email;
           // self.loggedIn = true;
           // self.token = result.token;
           console.log(result);

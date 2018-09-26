@@ -1,6 +1,6 @@
+// // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-// // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 
 const OrderConfirmation = types

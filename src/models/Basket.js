@@ -1,12 +1,12 @@
+// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-// MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 import OrderItem from './OrderItem';
 
-
 const Basket = types
   .model({
+    // basket contains unique orderItems based off of the value id and product id selected
     items: types.optional(types.array(OrderItem), []),
   })
   .views(self => ({
@@ -18,7 +18,7 @@ const Basket = types
       });
       return totalQuantity;
     },
-
+    // following views needed for BigC processOrder POST request
     get subtotal_ex_tax() {
       let sub = 0.0;
       self.items.map((i) => {
@@ -49,7 +49,7 @@ const Basket = types
       const id = parseInt(prevId, 10);
       const existingItem = self.items.find(i => i.id === id);
 
-      // if present increment
+      // if present increment item count
       if (existingItem) {
         existingItem.addCartQuantity(1);
       } else {

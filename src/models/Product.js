@@ -1,6 +1,6 @@
+// // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-// // MobX-State-Tree uses reassignment to self. Disable that rule for model files
 import { types } from 'mobx-state-tree';
 import ProductOptions from './ProductOptions';
 
@@ -11,7 +11,9 @@ const Product = types
     price: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     thumbnail_url: types.optional(types.string, ''),
+    // if you have options, ex: sizes or colors
     options: types.optional(types.array(ProductOptions), []),
+    // if you have categories that you'd like to filter by , ex jeans or shirts
     categories: types.optional(types.array(types.number), []),
     quantity_in_basket: types.optional(types.number, 0),
   })
