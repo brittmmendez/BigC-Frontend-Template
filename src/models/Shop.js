@@ -2,10 +2,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow } from 'mobx-state-tree';
+import User from './User';
+import Checkout from './Checkout';
 import Products from './Products';
 import Basket from './Basket';
-import Checkout from './Checkout';
-import User from './User';
 
 const Shop = types
   .model({

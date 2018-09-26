@@ -5,6 +5,7 @@ import { types } from 'mobx-state-tree';
 
 const OptionValues = types
   .model({
+    // this is the format that BigC api sends options for products
     value_id: types.number,
     value_name: types.optional(types.string, ''),
   });
