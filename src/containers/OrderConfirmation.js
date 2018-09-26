@@ -14,6 +14,7 @@ class OrderConfirmation extends Component {
           <div className="content">
             <h1>
               Thanks
+              {' '}
               {orderConfirmation.first_name}
               ! Your order is confirmed!
             </h1>

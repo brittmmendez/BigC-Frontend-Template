@@ -31,7 +31,7 @@ export default class Login extends Component {
     event.preventDefault();
     if (this.validateForm()) {
       this.props.shop.user.logIn(this.state);
-      this.props.history.push('/account');
+      this.props.history.goBack();
     }
   }
 
