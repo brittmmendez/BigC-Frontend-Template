@@ -13,6 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [Fetching Requests](#fetching-requests)
 - [Components](#components)
 - [Containers and Routes](containers-and-routes)
+- [Forms](#forms)
 - [Using CSS](#using-css)
 - [Questions? Feedback? Contribute?](#contribute)
 
@@ -116,6 +117,17 @@ Create the container in the containers folder, be sure to import the container i
 
 #### `Removing`
 Delete the file and be sure to remove the import in any other files that referenced it. 
+
+## Forms
+Currently, Formik and Yup are being used for form creation and validation.  
+#### src/containers:
+- FormikLogin.js
+- FormikRegister.js
+
+If you do do wish to implement Formik, there are backup forms with basic logic/validation that can be customized.
+#### src/containers:
+- Login.js
+- Register.js
 
 ## Test Coverage
 Currently using [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-Nutshell) for end-to-end testing.<br/>

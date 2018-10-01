@@ -4,8 +4,8 @@ import Home from './Home';
 import ProductsPage from './ProductsPage';
 import ProductShow from './ProductShow';
 import NotFound from './NotFound';
-import Login from './Login';
-import Register from './Register';
+import FormikLogin from './FormikLogin';
+import FormikRegister from './FormikRegister';
 import Account from './Account';
 import OrderConfirmation from './OrderConfirmation';
 import Payment from './Payment';
@@ -41,8 +41,8 @@ const Routes = () => (
     <Route path="/payment" component={Payment} />
     <Route path="/checkout" component={Checkout} />
     <Route path="/order-confirmation" component={OrderConfirmation} />
-    <Route path="/register" component={Register} />
-    <Route path="/login" component={Login} />
+    <Route path="/register" component={FormikRegister} />
+    <Route path="/login" component={FormikLogin} />
     <Route path="/account" component={Account} />
     <Route component={NotFound} />
   </Switch>);
