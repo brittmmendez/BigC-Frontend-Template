@@ -47,37 +47,67 @@ class FormikRegister extends Component {
               <label className="label">
                 First Name
                 <ErrorMessage className="help is-danger" name="firstName" component="div" />
-                <Field className="input" type="firstName" name="firstName" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="firstName" name="firstName" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-user" />
+                  </span>
+                </div>
               </label>
               <br />
               <label className="label">
                 Last Name
                 <ErrorMessage className="help is-danger" name="lastName" component="div" />
-                <Field className="input" type="lastName" name="lastName" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="lastName" name="lastName" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-user" />
+                  </span>
+                </div>
               </label>
               <br />
               <label className="label">
                 Email
                 <ErrorMessage className="help is-danger" name="email" component="div" />
-                <Field className="input" type="email" name="email" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="email" name="email" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-envelope" />
+                  </span>
+                </div>
               </label>
               <br />
               <label className="label">
                 Confirm Email
                 <ErrorMessage className="help is-danger" name="verifyEmail" component="div" />
-                <Field className="input" type="verifyEmail" name="verifyEmail" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="verifyEmail" name="verifyEmail" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-envelope" />
+                  </span>
+                </div>
               </label>
               <br />
               <label className="label">
                 Password
                 <ErrorMessage className="help is-danger" name="password" component="div" />
-                <Field className="input" type="password" name="password" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="password" name="password" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-lock" />
+                  </span>
+                </div>
               </label>
               <br />
               <label className="label">
                 Confirm Password
                 <ErrorMessage className="help is-danger" name="verifyPassword" component="div" />
-                <Field className="input" type="password" name="verifyPassword" />
+                <div className="control has-icons-left has-icons-right">
+                  <Field className="input" type="password" name="verifyPassword" />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-lock" />
+                  </span>
+                </div>
               </label>
               <br />
               <button className="button is-dark " type="submit" disabled={isSubmitting}>
