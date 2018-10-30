@@ -35,7 +35,7 @@ export default class Payment extends Component {
     }
 
     render() {
-      if (this.props.shop.basket.items.length > 0) {
+      if (this.props.shop.cart.items.length > 0) {
         return (
           <div className="container has-text-centered">
             <form onSubmit={this.handleSubmit}>
@@ -89,7 +89,7 @@ export default class Payment extends Component {
               </div>
               <div className="field">
                 <p className="control has-text-centered">
-                  <button className="button is-dark" type="submit">
+                  <button className="button is-primary" type="submit">
                                     Submit Order
                   </button>
                 </p>

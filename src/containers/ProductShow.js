@@ -8,7 +8,7 @@ import LoadingView from '../components/LodaingView';
 class ProductShow extends Component {
   onProductButtonClick(product) {
     const { shop } = this.props;
-    shop.basket.addToBasket(product);
+    shop.cart.addToCart(product);
   }
 
   render() {

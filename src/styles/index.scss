@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+//set fonts for certain elements
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Source Serif Pro";
+}
+// Set your brand colors
+$dark-grey:  rgb(72, 73, 74); //primary
+$iceberg: #C6D9D0;
+$regal-blue: #133558;        
+$light-blue: #BED7F1;
+$marroon: #812E4E;
+$blue-lagoon: #00636C;
+$beige: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+$black: #000000;
+
+// Update Bulma's global variables
+$family-primary: "Nunito", sans-serif;
+$primary: $dark-grey;
+$link: $marroon;
+$info: $regal-blue;
+$success: $light-blue;
+$warning: $blue-lagoon; 
+$danger: $dark-grey;
+$grey-dark: $black;
+$grey-light: $iceberg;
+
+// $body-size: 17px;
+// $widescreen-enabled: false;
+// $fullhd-enabled: false;
+// $family-secondary: "Source Serif Pro";
+
+// Update some of Bulma's component variables
+// $body-background-color: $beige-lighter;
+// $control-border-width: 2px;
+// $input-border-color: transparent;
+// $input-shadow: none;
+
+// Import only what you need from Bulma
+@import 'node_modules/bulma/bulma.sass';

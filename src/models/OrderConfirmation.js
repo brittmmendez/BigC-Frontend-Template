@@ -11,6 +11,7 @@ const OrderConfirmation = types
     status: types.optional(types.string, ''),
     total: types.optional(types.string, ''),
     first_name: types.optional(types.string, ''),
+    items_total: types.optional(types.number, 0),
     // street_1: types.optional(types.string,''),
     // street_2: types.optional(types.string,''),
     // city: types.optional(types.string,''),

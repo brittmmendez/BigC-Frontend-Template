@@ -13,14 +13,14 @@ class MyCart extends Component {
   };
 
   render() {
-    const { basket } = this.props.shop;
+    const { cart } = this.props.shop;
 
-    if (basket.items.length > 0) {
+    if (cart.items.length > 0) {
       return (
         <div className="container has-text-centered">
           <div className="content">
             <h1>My Cart</h1>
-            {basket.items.map(item => (
+            {cart.items.map(item => (
               <div key={item.id}>
                 <Link to={`/products-page/${item.item}`}>
                   <h4>
@@ -38,11 +38,18 @@ class MyCart extends Component {
                   {item.productTotal}
                 </h4>
 
-                <button className="button" type="button" onClick={() => basket.removeFromBasket(item)}>
+                <button className="button" type="button" onClick={() => cart.removeFromCart(item)}>
                   <i className="fas fa-trash-alt" />
                 </button>
 
-                <button className="button" type="button" onClick={() => basket.addToBasket({ item })}>
+                <button
+                  className="button"
+                  type="button"
+                  onClick={() => cart.addToCart({
+                    item,
+                    optionValue: item.optionValue,
+                  })}
+                >
                   <i className="fas fa-plus" />
                 </button>
 
@@ -52,7 +59,7 @@ class MyCart extends Component {
               </div>
             ))}
 
-            <Link className="button is-dark" to="/checkout">
+            <Link className="button is-primary" to="/checkout">
               Checkout
             </Link>
           </div>

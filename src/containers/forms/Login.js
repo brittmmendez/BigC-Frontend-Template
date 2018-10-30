@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import '../static/App.css';
+
 
 @inject('shop')
 @observer
@@ -86,7 +86,7 @@ export default class Login extends Component {
           {this.state.loginError && <p className="help is-danger">Please Enter Username & Password</p>}
           <div className="field">
             <p className="control has-text-centered">
-              <button className="button is-dark " type="submit">
+              <button className="button is-primary " type="submit">
                 Login
               </button>
             </p>

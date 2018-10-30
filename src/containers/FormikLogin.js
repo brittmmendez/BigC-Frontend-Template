@@ -17,19 +17,37 @@ class FormikLogin extends Component {
     return (
       <div className="container has-text-centered">
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{
+            email: '',
+            password: '',
+          }}
           validationSchema={Yup.object().shape({
             email: Yup.string().email('Email not valid').required('Email is required'),
             password: Yup.string().required('Password is required'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            this.props.shop.user.logIn(values);
-            setSubmitting(false);
-            this.props.history.goBack();
+            this.props.shop.user.logIn(values)
+              .then((response) => {
+                if (response) {
+                  setSubmitting(false);
+                  this.props.history.push('/account');
+                } else {
+                  console.log('error');
+                  setSubmitting(false);
+                }
+              });
           }}
         >
           {({ isSubmitting }) => (
             <Form>
+              {this.props.shop.user.logInError
+                && (
+                  <strong>
+                    <p className="help is-danger">
+                      Invalid Username or Password
+                    </p>
+                  </strong>
+                )}
               <label className="label ">
                 Email
                 <ErrorMessage className="help is-danger" name="email" component="div" />
@@ -52,7 +70,7 @@ class FormikLogin extends Component {
                 </div>
               </label>
               <br />
-              <button className="button is-dark " type="submit" disabled={isSubmitting}>
+              <button className="button is-primary" type="submit" disabled={isSubmitting}>
                 Submit
               </button>
             </Form>

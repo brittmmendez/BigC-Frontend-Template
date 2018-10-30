@@ -1,90 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-const Footer = () => (
-  <footer className="footer has-background-white-bis">
-    <div className="columns has-text-centered">
-      <div className="column is-4 is-size-7">
-        <p className="title is-5 is-marginless"> Products </p>
-        <p>
-          <Link
-            to="/product1"
-          >
-            Product 1
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/product2"
-          >
-            Product 2
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/product3"
-          >
-            Product 3
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/product4"
-          >
-            Product 4
-          </Link>
-        </p>
-      </div>
-      <div className="column is-4 is-size-7">
-        <p className="title is-5 is-marginless"> About </p>
-        <p>
-          <Link
-            to="/about1"
-          >
-            About 1
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/about2"
-          >
-            About 2
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/about3"
-          >
-            About 3
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/about4"
-          >
-            About 4
-          </Link>
-        </p>
-      </div>
-      <div className="column is-4 is-size-7">
-        <p className="title is-5 is-marginless"> Support </p>
-        <p>
-          <Link
-            to="/help"
-          >
-            Help
-          </Link>
-        </p>
-        <p>
-          <Link
-            to="/contact-us"
-          >
-            Contact Us
-          </Link>
-        </p>
-      </div>
-    </div>
-  </footer>
-);
+const style = {
+  bottom: '0',
+  width: '100%',
+  height: '60px',
+  background: '#6cf',
+};
+
+@inject('shop')
+@observer
+class Footer extends Component {
+  render() {
+    return (
+      <footer className="footer has-background-danger" style={style}>
+        <div className="container">
+          <div className="columns">
+            <div className="column is-6 is-size-7">
+              <div className="columns">
+                <div className="column">
+                  <Link className="button" to="/">
+                    LOGO GOES HERE
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="columns">
+                <div className="column is-4">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+                <div className="column is-4 is-size-7">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+                <div className="column is-4 is-size-7">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+              </div>
+              <div className="columns">
+                <div className="column is-4">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+                <div className="column is-4 is-size-7">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+                <div className="column is-4 is-size-7">
+                  <p className="title is-7 is-marginless has-text-white"> Footer Goodness </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+}
 
 export default Footer;

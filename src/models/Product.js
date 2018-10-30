@@ -10,21 +10,17 @@ const Product = types
     name: types.string,
     price: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
-    thumbnail_url: types.optional(types.string, ''),
+    // thumbnail_url: types.optional(types.string, ''),
     // if you have options, ex: sizes or colors
     options: types.optional(types.array(ProductOptions), []),
     // if you have categories that you'd like to filter by , ex jeans or shirts
     categories: types.optional(types.array(types.number), []),
-    quantity_in_basket: types.optional(types.number, 0),
+    quantity_in_cart: types.optional(types.number, 0),
   })
   .views(self => ({
     get productTotal() {
-      const productTotal = self.price * self.quantity_in_basket;
+      const productTotal = self.price * self.quantity_in_cart;
       return productTotal.toFixed(2);
-    },
-
-    get uniqueIdentifier() {
-      return parseInt(`${self.id}${self.absorbency}${self.wing}`, 10);
     },
   }));
 

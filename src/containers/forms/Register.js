@@ -290,7 +290,7 @@ export default class Register extends Component {
 
           <div className="field">
             <p className="control has-text-centered">
-              <button className="button is-dark" type="submit">
+              <button className="button is-primary" type="submit">
                   Register
               </button>
             </p>

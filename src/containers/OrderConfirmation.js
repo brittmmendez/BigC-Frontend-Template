@@ -35,6 +35,10 @@ class OrderConfirmation extends Component {
               {orderConfirmation.status}
             </p>
             <p>
+              Number of Items:
+              {orderConfirmation.items_total}
+            </p>
+            <p>
               Total: $
               {parseInt(orderConfirmation.total, 10).toFixed(2)}
             </p>

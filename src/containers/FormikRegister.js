@@ -29,21 +29,34 @@ class FormikRegister extends Component {
             firstName: Yup.string().required('First Name is required'),
             lastName: Yup.string().required('Last Name is required'),
             email: Yup.string().email('Email not valid').required('Email is required'),
-            verifyEmail: Yup.string().oneOf([Yup.ref('email'), null], "Emails don't match").required('Confirmation Email is required'),
+            verifyEmail: Yup.string().oneOf([Yup.ref('email'), null], 'Emails do not match').required('Confirmation Email is required'),
             password: Yup.string().min(8, 'Password must be 8 characters or longer').required('Password is required'),
-            verifyPassword: Yup.string().oneOf([Yup.ref('password'), null], "Passwords don't match").required('Confirmation Password is required'),
+            verifyPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords do not match').required('Confirmation Password is required'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            this.props.shop.user.register(values).then(
-
-            );
-            // this.props.history.push('/account');
-            this.props.history.push('/login');
-            setSubmitting(false);
+            this.props.shop.user.register(values)
+              .then((response) => {
+                if (response) {
+                  setSubmitting(false);
+                  this.props.history.push('/login');
+                } else {
+                  console.log('error');
+                  setSubmitting(false);
+                }
+              });
           }}
         >
           {({ isSubmitting }) => (
             <Form>
+              {this.props.shop.user.registerError
+                && (
+                  <strong>
+                    <p className="help is-danger">
+                      Account not created. Username already exists. Please
+                      <Link to="/login"> Log In!</Link>
+                    </p>
+                  </strong>
+                )}
               <label className="label">
                 First Name
                 <ErrorMessage className="help is-danger" name="firstName" component="div" />
@@ -110,15 +123,15 @@ class FormikRegister extends Component {
                 </div>
               </label>
               <br />
-              <button className="button is-dark " type="submit" disabled={isSubmitting}>
+              <button className="button is-primary " type="submit" disabled={isSubmitting}>
                 Submit
               </button>
             </Form>
           )}
         </Formik>
         <h5>
-          Need an account?
-          <Link to="/register"> Register Here!</Link>
+          Already have an account?
+          <Link to="/login"> Log In!</Link>
         </h5>
       </div>
     );

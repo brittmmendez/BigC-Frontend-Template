@@ -2,21 +2,41 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow } from 'mobx-state-tree';
+import { createClient } from 'contentful';
+import fuzzysearch from 'fuzzysearch';
 import User from './User';
 import Checkout from './Checkout';
 import Products from './Products';
-import Basket from './Basket';
+import Cart from './Cart';
+
+// Contentful Configuration
+const client = createClient({
+  space: '0g2ovjairksb',
+  environment: 'master', // defaults to 'master' if not set
+  accessToken: 'b65e03f849d4e071d7edaefd70b7e72dad3c6a269341365f9cec4b69d13aa12d',
+});
+console.log(client);
 
 const Shop = types
   .model({
     user: types.optional(User, {}),
     checkout: types.optional(Checkout, {}),
     products: types.optional(Products, { data: [] }),
-    basket: types.optional(Basket, {}),
+    searchProducts: types.optional(Products, { data: [] }),
+    cart: types.optional(Cart, {}),
     apiUrl: 'https://my-mix-api.herokuapp.com/api',
   })
   .actions(self => ({
-    // initial fetch all products request
+    // initial fetch from contentful
+    getContent: flow(function* getContent() {
+      if (self.products.productCount === 0) {
+        const entries = yield client.getEntries();
+        // will have to figure out best way to store in a model once we have our accurate content
+        entries.items.map(a => console.log(a.fields));
+      }
+    }),
+
+    // initial fetch from BigC
     getProducts: flow(function* getProducts() {
       if (self.products.productCount === 0) {
         const response = yield fetch(`${self.apiUrl}/products`);
@@ -47,22 +67,29 @@ const Shop = types
         console.log(json);
         // set orderConfirmation model for confirmation container
         self.createOrderConfirmation(json);
-        // clears basket if request is successful
-        self.basket.clearBasket();
+        // clears cart if request is successful
+        self.cart.clearCart();
       } catch (err) {
         console.log(err);
       }
     }),
+
+    productSearch(searchTerm) {
+      const productsFound = self.products.data.filter(
+        p => fuzzysearch(searchTerm.toLowerCase(), p.name.toLowerCase()),
+      );
+      return productsFound;
+    },
 
     prepOrder() {
       const request = {
         // setting user id billing/shipping info
         customer_id: self.user.id,
         order_total: {
-          subtotal_ex_tax: parseFloat(self.basket.subtotal_ex_tax),
-          subtotal_inc_tax: parseFloat(self.basket.subtotal_inc_tax),
-          total_ex_tax: parseFloat(self.basket.total_ex_tax),
-          total_inc_tax: parseFloat(self.basket.total_inc_tax),
+          subtotal_ex_tax: parseFloat(self.cart.subtotal_ex_tax),
+          subtotal_inc_tax: parseFloat(self.cart.subtotal_inc_tax),
+          total_ex_tax: parseFloat(self.cart.total_ex_tax),
+          total_inc_tax: parseFloat(self.cart.total_inc_tax),
         },
         billing_address: {
           first_name: self.checkout.billingInfo.first_name,
@@ -100,11 +127,22 @@ const Shop = types
 
     prepItems() {
       // add additional product info based on your products ex. product option id's and values
-      const items = self.basket.items.map(item => (
-        {
-          product_id: item.item,
-          quantity: item.quantity,
-        }
+      const items = self.cart.items.map(item => (
+        item.option_id === 0
+          ? {
+            product_id: item.item,
+            quantity: item.quantity,
+          }
+          : {
+            product_id: item.item,
+            quantity: item.quantity,
+            product_options: [
+              {
+                id: item.option_id,
+                value: item.option_value,
+              },
+            ],
+          }
       ));
       console.log('Prep Items');
       console.log([...items]);
@@ -120,6 +158,7 @@ const Shop = types
         status: json.status,
         total: json.total_inc_tax,
         first_name: json.billing_address.first_name,
+        items_total: json.items_total,
       };
       self.checkout.orderConfirmation = confirmation;
     },
@@ -131,6 +170,7 @@ const Shop = types
 
     load() {
       self.getProducts();
+      self.getContent();
     },
 
     reload() {

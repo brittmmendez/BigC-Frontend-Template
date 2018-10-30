@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Banner = () => (
-  <section className="hero is-dark is-medium">
+  <section className="hero is-primary is-medium">
     <div className="container has-text-centered">
       <h2 className="is-6 subtitle">
         GET

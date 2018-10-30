@@ -7,14 +7,13 @@ const OrderItem = types
   .model({
     id: types.maybe(types.number),
     item: types.number,
-    absorbency: types.maybe(types.number),
-    wing: types.maybe(types.number),
+    option_value: types.maybe(types.number),
+    option_id: types.maybe(types.number),
     name: types.maybe(types.string, ''),
     description: types.maybe(types.string, ''),
     thumbnail: types.maybe(types.string, ''),
     quantity: types.optional(types.number, 1),
     price: types.optional(types.number, 0),
-    partOfKit: false,
   })
   .views(self => ({
     get productTotal() {
@@ -32,7 +31,7 @@ const OrderItem = types
     },
 
     removeFromCart() {
-      self.quantity_in_basket = 0;
+      self.quantity_in_cart = 0;
     },
   }));
 

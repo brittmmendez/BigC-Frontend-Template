@@ -12,24 +12,48 @@ export default class PurchaseForm extends Component {
 
   constructor(props) {
     super(props);
+    const { product } = this.props;
     this.state = {
-      product: this.props.product,
+      product,
+      optionValue: product.options[0] ? product.options[0].values[0].value_id : null,
     };
+  }
+
+  handleOptionChange = (event) => {
+    this.setState({
+      optionValue: parseInt(event.target.value, 10),
+    });
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { shop } = this.props;
-    shop.basket.addToBasket({
+    shop.cart.addToCart({
       item: this.props.product,
+      optionValue: this.state.optionValue ? this.state.optionValue : 0,
     });
   }
 
   render() {
+    const { product } = this.props;
+
     return (
       <div className="form">
         <form onSubmit={this.handleSubmit}>
-          <button className="button is-dark" type="submit">
+          {product.options[0]
+            ? (
+              <div className="field">
+                <div className="select">
+                  <select onChange={this.handleOptionChange}>
+                    {product.options[0].values.map(value => (
+                      <option value={value.value_id}>{value.value_name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            ) : null}
+
+          <button className="button is-primary" type="submit">
             ADD TO BAG
           </button>
         </form>

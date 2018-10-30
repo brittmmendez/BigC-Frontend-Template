@@ -17,7 +17,7 @@ class Account extends Component {
           <div>
             <h1>Welcome to your account page</h1>
             <h3>Previous orders will be isted here</h3>
-            <button type="button" className="button is-dark" onClick={this.handleClick}>
+            <button type="button" className="button is-primary" onClick={this.handleClick}>
               Log Out
             </button>
           </div>
@@ -26,7 +26,7 @@ class Account extends Component {
         <div>
           <h1>Please sign in</h1>
           <h3>to view account</h3>
-          <Link className="button is-dark" to="login">
+          <Link className="button is-primary" to="login">
             <span>Log In</span>
           </Link>
         </div>

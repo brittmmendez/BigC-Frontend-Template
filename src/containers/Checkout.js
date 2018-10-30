@@ -186,10 +186,10 @@ class Checkout extends Component {
   }
 
   render() {
-    const { basket } = this.props.shop;
+    const { cart } = this.props.shop;
     const { shop } = this.props;
 
-    if (basket.itemCount > 0) {
+    if (cart.itemCount > 0) {
       return (
         <div className="container has-text-centered">
           {!shop.user.loggedIn
@@ -532,7 +532,7 @@ class Checkout extends Component {
               <div className="field">
                 <p className="control has-text-centered">
                   <button
-                    className="button is-dark"
+                    className="button is-primary"
                     type="submit"
                     disabled={!shop.user.loggedIn}
                   >
