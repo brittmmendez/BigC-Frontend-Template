@@ -12,26 +12,28 @@ class Account extends Component {
   render() {
     const { shop } = this.props;
     return (
-      <div>
-        {shop.user.loggedIn && (
+      <section className="section">
+        <div className="container has-text-centered">
+          {shop.user.loggedIn && (
+            <div>
+              <h1>Welcome to your account page</h1>
+              <h3>Previous orders will be listed here</h3>
+              <button type="button" className="button is-primary" onClick={this.handleClick}>
+                Log Out
+              </button>
+            </div>
+          )}
+          {!shop.user.loggedIn && (
           <div>
-            <h1>Welcome to your account page</h1>
-            <h3>Previous orders will be isted here</h3>
-            <button type="button" className="button is-primary" onClick={this.handleClick}>
-              Log Out
-            </button>
+            <h1>Please sign in</h1>
+            <h3>to view account</h3>
+            <Link className="button is-primary" to="login">
+              <span>Log In</span>
+            </Link>
           </div>
-        )}
-        {!shop.user.loggedIn && (
-        <div>
-          <h1>Please sign in</h1>
-          <h3>to view account</h3>
-          <Link className="button is-primary" to="login">
-            <span>Log In</span>
-          </Link>
+          )}
         </div>
-        )}
-      </div>
+      </section>
     );
   }
 }

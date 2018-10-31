@@ -11,9 +11,9 @@ import Cart from './Cart';
 
 // Contentful Configuration
 const client = createClient({
-  space: '0g2ovjairksb',
+  space: '0ck90443p53t',
   environment: 'master', // defaults to 'master' if not set
-  accessToken: 'b65e03f849d4e071d7edaefd70b7e72dad3c6a269341365f9cec4b69d13aa12d',
+  accessToken: '207ac9b7c042fce9f803dd28ae69537f9fc1de713248f646417017feaa7ad401',
 });
 console.log(client);
 
@@ -45,6 +45,13 @@ const Shop = types
         self.products.data = json;
       }
     }),
+
+    // Check for cart cookie
+    checkCart() {
+      // if there is a cart cookie
+      // take the cookie and set the cart id equal to that cookie
+      // iterate through whatever items are in cart and add them back to line items
+    },
 
     proccessOrder: flow(function* proccessOrder() {
       // sets billing/shipping info and products to correct request format
@@ -171,6 +178,7 @@ const Shop = types
     load() {
       self.getProducts();
       self.getContent();
+      self.checkCart();
     },
 
     reload() {

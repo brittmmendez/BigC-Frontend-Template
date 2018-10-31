@@ -20,18 +20,20 @@ class ProductShow extends Component {
       const description = product.description.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '');
 
       return (
-        <div className="container has-text-centered">
-          <div className="content">
-            <h2>{product.name}</h2>
-            <img src={product.thumbnail_url} alt="img" width="150px" height="150px" />
-            <p>{description}</p>
-            <h4>
-              $
-              {product.price.toFixed(2)}
-            </h4>
-            <PurchaseForm product={product} />
+        <section className="section">
+          <div className="container has-text-centered">
+            <div className="content">
+              <h2>{product.name}</h2>
+              <img src={product.thumbnail_url} alt="img" width="150px" height="150px" />
+              <p>{description}</p>
+              <h4>
+                $
+                {product.price.toFixed(2)}
+              </h4>
+              <PurchaseForm product={product} />
+            </div>
           </div>
-        </div>
+        </section>
       );
     }
     return (

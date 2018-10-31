@@ -15,67 +15,72 @@ class MyCart extends Component {
   render() {
     const { cart } = this.props.shop;
 
-    if (cart.items.length > 0) {
+    if (cart.itemCount > 0) {
       return (
-        <div className="container has-text-centered">
-          <div className="content">
-            <h1>My Cart</h1>
-            {cart.items.map(item => (
-              <div key={item.id}>
-                <Link to={`/products-page/${item.item}`}>
-                  <h4>
-                    {item.name}
+        <section className="section">
+          <div className="container has-text-centered">
+            <div className="content">
+              <h1>My Cart</h1>
+              {cart.items.map(item => (
+                <div key={item.id}>
+                  <Link to={`/products-page/${item.item}`}>
+                    <h4>
+                      {item.name}
+                    </h4>
+                    <img src={item.thumbnail} alt="img" width="150px" height="150px" />
+                  </Link>
+                  <h4 className="is-marginless">
+                    {item.quantity}
+                    <i className="fas fa-times" />
+                    $
+                    {item.price}
+                    <i className="fas fa-equals" />
+                    $
+                    {item.productTotal}
                   </h4>
-                  <img src={item.thumbnail} alt="img" width="150px" height="150px" />
+                  <button className="button" type="button" onClick={() => cart.removeFromCart(item)}>
+                    <i className="fas fa-trash-alt" />
+                  </button>
+
+                  <button
+                    className="button"
+                    type="button"
+                    onClick={() => cart.addToCart({
+                      item,
+                      optionValue: item.option_value,
+                    })}
+                  >
+                    <i className="fas fa-plus" />
+                  </button>
+
+                  <button className="button" type="button" onClick={() => item.lowerCartQuantity()} disabled={item.quantity === 1}>
+                    <i className="fas fa-minus" />
+                  </button>
+                </div>
+              ))}
+
+              <section className="section">
+                <Link className="button is-primary" to="/checkout">
+                  Checkout
                 </Link>
-                <h4 className="is-marginless">
-                  {item.quantity}
-                  <i className="fas fa-times" />
-                  $
-                  {item.price}
-                  <i className="fas fa-equals" />
-                  $
-                  {item.productTotal}
-                </h4>
-
-                <button className="button" type="button" onClick={() => cart.removeFromCart(item)}>
-                  <i className="fas fa-trash-alt" />
-                </button>
-
-                <button
-                  className="button"
-                  type="button"
-                  onClick={() => cart.addToCart({
-                    item,
-                    optionValue: item.optionValue,
-                  })}
-                >
-                  <i className="fas fa-plus" />
-                </button>
-
-                <button className="button" type="button" onClick={() => item.lowerCartQuantity()} disabled={item.quantity === 1}>
-                  <i className="fas fa-minus" />
-                </button>
-              </div>
-            ))}
-
-            <Link className="button is-primary" to="/checkout">
-              Checkout
-            </Link>
+              </section>
+            </div>
+            <TotalAmount />
           </div>
-          <TotalAmount />
-        </div>
+        </section>
       );
     }
 
     return (
-      <div className="container  has-text-centered">
-        <div className="content">
-          <h1>My Cart</h1>
-          <h3>Sorry, you have no items in your cart yet!</h3>
-          <ShopProductsBtn />
+      <section className="section">
+        <div className="container  has-text-centered">
+          <div className="content">
+            <h1>My Cart</h1>
+            <h3>Sorry, you have no items in your cart yet!</h3>
+            <ShopProductsBtn />
+          </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

@@ -7,7 +7,7 @@ class LoadingView extends Component {
   render() {
     return (
       <div className="container has-text-centered">
-        {!this.props.shop.products.data.length && (
+        {!this.props.shop.products.productCount && (
         <div className="container">
           <div className="content has-text-centered">
             <i className="fa fa-spinner fa-pulse fa-7x fa-fw" />

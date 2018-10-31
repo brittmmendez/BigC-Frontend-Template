@@ -4,6 +4,8 @@
 import { types, flow, getParent } from 'mobx-state-tree';
 import { Cookies } from 'react-cookie';
 
+const cookies = new Cookies();
+
 const User = types
   .model({
     id: types.optional(types.number, 0),
@@ -23,7 +25,6 @@ const User = types
       self.email = '';
       self.loggedIn = false;
       self.token = '';
-      const cookies = new Cookies();
       cookies.remove('token');
       console.log(cookies);
       console.log('logged Out');
@@ -62,7 +63,6 @@ const User = types
           self.loggedIn = true;
           console.log('signed in');
           console.log(result);
-          const cookies = new Cookies();
           cookies.set('token', result.token, { path: '/' });
           console.log(cookies.get('token'));
           return true;

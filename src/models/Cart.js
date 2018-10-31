@@ -5,6 +5,8 @@ import { types, flow, getParent } from 'mobx-state-tree';
 import { Cookies } from 'react-cookie';
 import OrderItem from './OrderItem';
 
+const cookies = new Cookies();
+
 const Cart = types
   .model({
     id: types.optional(types.string, ''),
@@ -75,17 +77,15 @@ const Cart = types
         json = yield json.json();
         console.log('Cart Created');
         self.id = json.id;
-        const cookies = new Cookies();
         cookies.set('cart', json.id, { path: '/' });
         console.log(cookies.get('cart'));
-        console.log(json);
         console.log(cookies);
       } catch (err) {
         console.log(err);
       }
     }),
 
-    addToCart({ item, optionValue = 0 }) {
+    addToCart({ item, optionValue = 0, quantity }) {
       // create initial cart
       if (self.items.length === 0) {
         self.createCart(item, optionValue);
@@ -98,7 +98,7 @@ const Cart = types
 
       // if present increment item count
       if (existingItem) {
-        existingItem.addCartQuantity(1);
+        existingItem.addCartQuantity(quantity);
       } else {
         // if not create a new order item
         self.items.push({
@@ -107,6 +107,7 @@ const Cart = types
           name: item.name,
           description: item.description,
           price: item.price,
+          quantity: quantity ? quantity : 0,
           thumbnail: item.thumbnail_url,
           option_id: item.options[0] ? item.options[0].id : 0,
           option_value: optionValue ? optionValue : 0,
@@ -117,9 +118,8 @@ const Cart = types
     clearCart() {
       self.items = [];
       self.id = '';
-      // const cookies = new Cookies();
-      // cookies.remove('cart');
-      // console.log(cookies);
+      cookies.remove('cart');
+      console.log(cookies);
     },
 
     removeFromCart(item) {

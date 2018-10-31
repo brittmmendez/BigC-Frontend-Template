@@ -16,7 +16,8 @@ class FormikSearch extends Component {
         })}
         onSubmit={(searchTerm, { setSubmitting, resetForm }) => {
           this.props.closeNav();
-          this.props.history.push(`/search/${searchTerm.search}`);
+          this.props.history.push('/products-page');
+          this.props.shop.products.updateSearch(searchTerm.search);
           setSubmitting(false);
           resetForm();
         }}
@@ -25,7 +26,12 @@ class FormikSearch extends Component {
           <Form>
             <div className="field has-addons">
               <div className="control">
-                <Field className="input" type="search" name="search" placeholder="Search Now" />
+                <Field
+                  className="input"
+                  type="search"
+                  name="search"
+                  placeholder="Search Now"
+                />
               </div>
               <div className="control">
                 <button className="button is-rounded" type="submit" disabled={isSubmitting}>

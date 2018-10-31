@@ -35,7 +35,7 @@ export default class Payment extends Component {
     }
 
     render() {
-      if (this.props.shop.cart.items.length > 0) {
+      if (this.props.shop.cart.itemCount > 0) {
         return (
           <div className="container has-text-centered">
             <form onSubmit={this.handleSubmit}>
@@ -103,10 +103,15 @@ export default class Payment extends Component {
       }
 
       return (
-        <div className="container has-text-centered">
-          <h1>Payment</h1>
-          <ShopProductsBtn />
-        </div>
+        <section className="section">
+          <div className="container  has-text-centered">
+            <div className="content">
+              <h1>Payment</h1>
+              <h3>Sorry, you have no items in your cart yet!</h3>
+              <ShopProductsBtn />
+            </div>
+          </div>
+        </section>
       );
     }
 }

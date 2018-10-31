@@ -15,13 +15,14 @@ export default class PurchaseForm extends Component {
     const { product } = this.props;
     this.state = {
       product,
+      quantity: 1,
       optionValue: product.options[0] ? product.options[0].values[0].value_id : null,
     };
   }
 
-  handleOptionChange = (event) => {
+  handleOnChange = (event) => {
     this.setState({
-      optionValue: parseInt(event.target.value, 10),
+      [event.target.name]: parseInt(event.target.value, 10),
     });
   }
 
@@ -30,7 +31,11 @@ export default class PurchaseForm extends Component {
     const { shop } = this.props;
     shop.cart.addToCart({
       item: this.props.product,
+      quantity: this.state.quantity,
       optionValue: this.state.optionValue ? this.state.optionValue : 0,
+    });
+    this.setState({
+      quantity: 1,
     });
   }
 
@@ -44,14 +49,28 @@ export default class PurchaseForm extends Component {
             ? (
               <div className="field">
                 <div className="select">
-                  <select onChange={this.handleOptionChange}>
+                  <select name="optionValue" onChange={this.handleOnChange}>
                     {product.options[0].values.map(value => (
-                      <option value={value.value_id}>{value.value_name}</option>
+                      <option name="optionValue" value={value.value_id}>{value.value_name}</option>
                     ))}
                   </select>
                 </div>
               </div>
             ) : null}
+
+          <div className="field">
+            <label className="label">Quantity</label>
+            <div className="control">
+              <input
+                name="quantity"
+                className="input"
+                type="number"
+                min="1"
+                value={this.state.quantity}
+                onChange={this.handleOnChange}
+              />
+            </div>
+          </div>
 
           <button className="button is-primary" type="submit">
             ADD TO BAG

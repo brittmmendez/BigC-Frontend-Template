@@ -19,6 +19,7 @@ class NavBar extends Component {
     this.setState(prevState => ({
       isActive: !prevState.isActive,
     }));
+    this.props.shop.products.resetProductList();
   }
 
   openNav = () => {
