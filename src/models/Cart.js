@@ -89,13 +89,7 @@ const Cart = types
       try {
         // (CORS) error run in terminal:
         // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
-        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        });
+        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`);
         debugger;
         let json = response;
         json = yield json.json();
@@ -161,11 +155,8 @@ const Cart = types
       // remove all line items from cart
       self.items = [];
       // delete the cart from BigC
-
+      self.deleteBigCcart(self.id);
       // remove cart id and cookie from frontend
-      self.id = '';
-      cookies.remove('cart', { path: '/' });
-      console.log(cookies);
     },
 
     removeFromCart(item) {
