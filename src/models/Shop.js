@@ -4,10 +4,13 @@
 import { types, flow } from 'mobx-state-tree';
 import { createClient } from 'contentful';
 import fuzzysearch from 'fuzzysearch';
+import { Cookies } from 'react-cookie';
 import User from './User';
 import Checkout from './Checkout';
 import Products from './Products';
 import Cart from './Cart';
+
+const cookies = new Cookies();
 
 // Contentful Configuration
 const client = createClient({
@@ -29,11 +32,9 @@ const Shop = types
   .actions(self => ({
     // initial fetch from contentful
     getContent: flow(function* getContent() {
-      if (self.products.productCount === 0) {
-        const entries = yield client.getEntries();
-        // will have to figure out best way to store in a model once we have our accurate content
-        entries.items.map(a => console.log(a.fields));
-      }
+      const entries = yield client.getEntries();
+      // will have to figure out best way to store in a model once we have our accurate content
+      entries.items.map(a => console.log(a.fields));
     }),
 
     // initial fetch from BigC
@@ -48,9 +49,12 @@ const Shop = types
 
     // Check for cart cookie
     checkCart() {
+      const cookie = cookies.get('cart');
       // if there is a cart cookie
-      // take the cookie and set the cart id equal to that cookie
-      // iterate through whatever items are in cart and add them back to line items
+      if (cookie) {
+        // get the cart from BigC and add items in cart back to line items
+        self.cart.getBigCcart(cookie);
+      }
     },
 
     proccessOrder: flow(function* proccessOrder() {

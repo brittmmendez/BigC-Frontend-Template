@@ -47,7 +47,7 @@ const Cart = types
     },
   }))
   .actions(self => ({
-    createCart: flow(function* createCart(item, optionValue) {
+    createBigCcart: flow(function* createBigCcart(item, optionValue) {
       try {
         // (CORS) error run in terminal:
         // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
@@ -85,10 +85,52 @@ const Cart = types
       }
     }),
 
+    deleteBigCcart: flow(function* deleteBigCcart(cookie) {
+      try {
+        // (CORS) error run in terminal:
+        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
+        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        });
+        debugger;
+        let json = response;
+        json = yield json.json();
+        console.log(json);
+        debugger;
+        console.log('Cart Deleted');
+        self.id = '';
+        cookies.remove('cart', { path: '/' });
+        console.log(cookies);
+      } catch (err) {
+        console.log(err);
+      }
+    }),
+
+    getBigCcart: flow(function* getBigCcart(cookie) {
+      try {
+        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`);
+        let json = response;
+        json = yield json.json();
+        self.id = json.id;
+        debugger;
+        // NEED TO FINISH
+        json.line_items.physical_items.map(item => (
+          console.log(item)
+        ));
+      } catch (err) {
+        cookies.remove('cart', { path: '/' });
+        console.log(err);
+      }
+    }),
+
     addToCart({ item, optionValue = 0, quantity }) {
       // create initial cart
-      if (self.items.length === 0) {
-        self.createCart(item, optionValue);
+      if (!self.id) {
+        self.createBigCcart(item, optionValue);
       }
 
       // Check cart for existing order item
@@ -116,9 +158,13 @@ const Cart = types
     },
 
     clearCart() {
+      // remove all line items from cart
       self.items = [];
+      // delete the cart from BigC
+
+      // remove cart id and cookie from frontend
       self.id = '';
-      cookies.remove('cart');
+      cookies.remove('cart', { path: '/' });
       console.log(cookies);
     },
 

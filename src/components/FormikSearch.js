@@ -15,9 +15,10 @@ class FormikSearch extends Component {
           search: Yup.string().required(),
         })}
         onSubmit={(searchTerm, { setSubmitting, resetForm }) => {
+          this.props.shop.products.resetProductList();
+          this.props.shop.products.updateSearch(searchTerm.search);
           this.props.closeNav();
           this.props.history.push('/products-page');
-          this.props.shop.products.updateSearch(searchTerm.search);
           setSubmitting(false);
           resetForm();
         }}

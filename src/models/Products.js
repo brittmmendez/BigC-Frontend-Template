@@ -9,6 +9,7 @@ const Products = types
     data: types.optional(types.array(Product), []),
     sort: types.optional(types.string, ''),
     filter: types.optional(types.string, ''),
+    filterValue: types.optional(types.string, ''),
     searchTerm: types.optional(types.string, ''),
   })
   .actions(self => ({
@@ -21,10 +22,22 @@ const Products = types
     updateSearch(search) {
       self.searchTerm = search;
     },
+    updateFilterValue(value) {
+      self.filterValue = value;
+    },
+    resetSort() {
+      self.sort = ('');
+    },
+    resetFilter() {
+      self.filter = ('');
+    },
+    resetSearch() {
+      self.searchTerm = ('');
+    },
     resetProductList() {
-      self.updateSearch('');
-      self.updateSort('');
-      self.updateFilter('');
+      self.resetSort();
+      self.resetFilter();
+      self.resetSearch();
     },
   }))
   .views(self => ({

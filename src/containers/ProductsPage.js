@@ -5,7 +5,6 @@ import ProductItemView from '../components/ProductItemView';
 import ProductShow from './ProductShow';
 import LoadingView from '../components/LodaingView';
 import Sort from '../components/Sort';
-import Filter from '../components/Filter';
 import ShopProductsBtn from '../components/ShopProductsBtn';
 import '../styles/App.scss';
 
@@ -42,7 +41,6 @@ class ProductsPage extends Component {
         return (
           <section className="section">
             <Sort />
-            <Filter />
             <div className="container has-text-centered">
               <Switch>
                 <div className="content">
@@ -60,6 +58,7 @@ class ProductsPage extends Component {
       } if (items.length === 0) {
         return (
           <section className="section">
+            <Sort />
             <div className="container has-text-centered">
               <Switch>
                 <div className="content">
