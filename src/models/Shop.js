@@ -53,7 +53,8 @@ const Shop = types
       // if there is a cart cookie
       if (cookie) {
         // get the cart from BigC and add items in cart back to line items
-        self.cart.getBigCcart(cookie);
+        // self.cart.getBigCcart(cookie);
+        self.cart.getCart();
       }
     },
 

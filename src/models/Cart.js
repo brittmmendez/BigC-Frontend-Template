@@ -47,43 +47,68 @@ const Cart = types
     },
   }))
   .actions(self => ({
-    createBigCcart: flow(function* createBigCcart(item, optionValue) {
-      try {
-        // (CORS) error run in terminal:
-        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
-        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            line_items: [
-              {
-                quantity: 1,
-                product_id: item.id,
-                option_selections: item.options[0] ? [
-                  {
-                    option_id: item.options[0] ? item.options[0].id : 0,
-                    option_value: optionValue ? optionValue : 0,
-                  },
-                ] : [],
-              },
-            ],
-            customer_id: getParent(self, 1).user.id,
-          }),
-        });
-        let json = response;
-        json = yield json.json();
-        console.log('Cart Created');
-        self.id = json.id;
-        cookies.set('cart', json.id, { path: '/' });
-        console.log(cookies.get('cart'));
-        console.log(cookies);
-      } catch (err) {
-        console.log(err);
-      }
-    }),
+    // createBigCcart: flow(function* createBigCcart(item, optionValue) {
+    //   try {
+    //     // (CORS) error run in terminal:
+    //     // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
+    //     const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Accept: 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         line_items: [
+    //           {
+    //             quantity: 1,
+    //             product_id: item.id,
+    //             option_selections: item.options[0] ? [
+    //               {
+    //                 option_id: item.options[0] ? item.options[0].id : 0,
+    //                 option_value: optionValue ? optionValue : 0,
+    //               },
+    //             ] : [],
+    //           },
+    //         ],
+    //         customer_id: getParent(self, 1).user.id,
+    //       }),
+    //     });
+    //     let json = response;
+    //     json = yield json.json();
+    //     console.log('Cart Created');
+    //     self.id = json.id;
+    //     cookies.set('cart', json.id, { path: '/' });
+    //     console.log(cookies.get('cart'));
+    //     console.log(cookies);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }),
+
+    createCart() {
+      cookies.set('cart', { id: 'hello', orderItems: self.items }, { path: '/' });
+      self.id = cookies.get('cart').id;
+      console.log(cookies);
+    },
+
+    updateCart() {
+      cookies.set('cart', { id: self.id, orderItems: self.items }, { path: '/' });
+      self.id = cookies.get('cart').id;
+      console.log(cookies);
+    },
+
+    getCart() {
+      const cookie = cookies.get('cart');
+      console.log(cookie);
+      self.id = cookie.id;
+      self.items = cookie.orderItems;
+    },
+
+    removeCart() {
+      self.id = '';
+      cookies.remove('cart', { path: '/' });
+      console.log(cookies);
+    },
 
     deleteBigCcart: flow(function* deleteBigCcart(cookie) {
       try {
@@ -122,11 +147,6 @@ const Cart = types
     }),
 
     addToCart({ item, optionValue = 0, quantity }) {
-      // create initial cart
-      if (!self.id) {
-        self.createBigCcart(item, optionValue);
-      }
-
       // Check cart for existing order item
       const prevId = item.item ? item.item : item.id;
       const id = parseInt(prevId + '' + optionValue, 10);
@@ -149,14 +169,22 @@ const Cart = types
           option_value: optionValue ? optionValue : 0,
         });
       }
+
+      // create initial cart
+      if (!self.id) {
+        // self.createBigCcart(item, optionValue);
+        self.createCart();
+      } else {
+        self.updateCart();
+      }
     },
 
     clearCart() {
       // remove all line items from cart
       self.items = [];
       // delete the cart from BigC
-      self.deleteBigCcart(self.id);
-      // remove cart id and cookie from frontend
+      // self.deleteBigCcart(self.id);
+      self.removeCart();
     },
 
     removeFromCart(item) {
