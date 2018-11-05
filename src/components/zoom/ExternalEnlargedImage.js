@@ -23,32 +23,13 @@ class ExternalEnlargedImage extends Component {
           }}
           />
         </div>
-        <div className="fluid__instructions" style={{ position: 'relative' }}>
+        <div>
           <div
+            style={{ position: 'relative' }}
             id="portal"
             className="portal"
           />
-          <h3>External Enlarged Image Example</h3>
-          <p>
-              Render enlarged image into an HTML element of your choosing.
-          </p>
-          <p>
-              Ignored for touch input by default but will be honored if
-              isEnlargedImagePortalEnabledForTouch is implemented.
-          </p>
-          <p>
-              Use cases include a scenario where an ancestor element of
-              react-image-magnify implements overflow hidden.
-          </p>
-          <p>
-              Requires React v16.
-          </p>
-          <p>
-              Please see
-              for details.
-          </p>
         </div>
-        <div style={{ height: '1000px' }} />
       </div>
     );
   }
