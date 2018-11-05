@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import PurchaseForm from './PurchaseForm';
 import LoadingView from '../components/LodaingView';
+import defaultImage from '../static/images/Placeholder.png';
 
 @inject('shop')
 @observer
@@ -24,7 +25,7 @@ class ProductShow extends Component {
           <div className="container has-text-centered">
             <div className="content">
               <h2>{product.name}</h2>
-              <img src={product.thumbnail_url} alt="img" width="150px" height="150px" />
+              <img src={product.thumbnail_url ? product.thumbnail_url : defaultImage} alt={product.name} width="150px" height="150px" />
               <p>{description}</p>
               <h4>
                 $

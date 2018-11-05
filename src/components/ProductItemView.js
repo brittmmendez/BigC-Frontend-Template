@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import defaultImage from '../static/images/Placeholder.png';
 
 @inject('shop')
 @observer
@@ -14,7 +15,7 @@ class ProductItemView extends Component {
             <h4>
               {product.name}
             </h4>
-            <img src={product.thumbnail_url} alt={product.name} width="150px" height="150px" />
+            <img src={product.thumbnail_url ? product.thumbnail_url : defaultImage} alt={product.name} width="150px" height="150px" />
           </Link>
           <p>
             $

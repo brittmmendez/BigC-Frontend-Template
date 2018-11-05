@@ -6,7 +6,6 @@ import ProductShow from './ProductShow';
 import LoadingView from '../components/LodaingView';
 import Sort from '../components/Sort';
 import ShopProductsBtn from '../components/ShopProductsBtn';
-import '../styles/App.scss';
 
 @inject('shop')
 @observer

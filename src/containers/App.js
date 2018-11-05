@@ -12,13 +12,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div id="main-wrapper">
-          <div className="App">
-            <DevTools />
-            <NavBar />
-            <Routes />
-            <Footer />
-          </div>
+        <div>
+          <DevTools />
+          <NavBar />
+          <Routes />
+          <Footer />
         </div>
       </Router>
     );

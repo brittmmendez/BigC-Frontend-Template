@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import { types } from 'mobx-state-tree';
 import ProductOptions from './ProductOptions';
+// import defaultImage from '../static/images/Placeholder.png';
 
 const Product = types
   .model({
@@ -10,7 +11,7 @@ const Product = types
     name: types.string,
     price: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
-    // thumbnail_url: types.optional(types.string, ''),
+    // thumbnail_url: types.optional(types.string, defaultImage),
     // if you have options, ex: sizes or colors
     options: types.optional(types.array(ProductOptions), []),
     // if you have categories that you'd like to filter by , ex jeans or shirts

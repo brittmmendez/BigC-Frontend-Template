@@ -47,49 +47,49 @@ const Cart = types
     },
   }))
   .actions(self => ({
-    // createBigCcart: flow(function* createBigCcart(item, optionValue) {
-    //   try {
-    //     // (CORS) error run in terminal:
-    //     // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
-    //     const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         Accept: 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         line_items: [
-    //           {
-    //             quantity: 1,
-    //             product_id: item.id,
-    //             option_selections: item.options[0] ? [
-    //               {
-    //                 option_id: item.options[0] ? item.options[0].id : 0,
-    //                 option_value: optionValue ? optionValue : 0,
-    //               },
-    //             ] : [],
-    //           },
-    //         ],
-    //         customer_id: getParent(self, 1).user.id,
-    //       }),
-    //     });
-    //     let json = response;
-    //     json = yield json.json();
-    //     console.log('Cart Created');
-    //     self.id = json.id;
-    //     cookies.set('cart', json.id, { path: '/' });
-    //     console.log(cookies.get('cart'));
-    //     console.log(cookies);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }),
+    createBigCcart: flow(function* createBigCcart(item, optionValue) {
+      try {
+        // (CORS) error run in terminal:
+        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
+        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            line_items: [
+              {
+                quantity: 1,
+                product_id: item.id,
+                option_selections: item.options[0] ? [
+                  {
+                    option_id: item.options[0] ? item.options[0].id : 0,
+                    option_value: optionValue ? optionValue : 0,
+                  },
+                ] : [],
+              },
+            ],
+            customer_id: getParent(self, 1).user.id,
+          }),
+        });
+        let json = response;
+        json = yield json.json();
+        console.log('Cart Created');
+        self.id = json.id;
+        cookies.set('cart', { id: json.id, orderItems: self.items }, { path: '/' });
+        console.log(cookies.get('cart'));
+        console.log(cookies);
+      } catch (err) {
+        console.log(err);
+      }
+    }),
 
-    createCart() {
-      cookies.set('cart', { id: 'hello', orderItems: self.items }, { path: '/' });
-      self.id = cookies.get('cart').id;
-      console.log(cookies);
-    },
+    // createCart() {
+    //   cookies.set('cart', { id: 'hello', orderItems: self.items }, { path: '/' });
+    //   self.id = cookies.get('cart').id;
+    //   console.log(cookies);
+    // },
 
     updateCart() {
       cookies.set('cart', { id: self.id, orderItems: self.items }, { path: '/' });

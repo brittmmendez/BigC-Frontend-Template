@@ -48,13 +48,19 @@ const Shop = types
     }),
 
     // Check for cart cookie
-    checkCart() {
-      const cookie = cookies.get('cart');
+    checkCookies() {
+      const cartCookie = cookies.get('cart');
+      const userCookie = cookies.get('id');
       // if there is a cart cookie
-      if (cookie) {
+      if (cartCookie) {
         // get the cart from BigC and add items in cart back to line items
-        // self.cart.getBigCcart(cookie);
+        // self.cart.getBigCcart(cartCookie.id);
         self.cart.getCart();
+      }
+      if (userCookie) {
+        debugger;
+        self.user.id = parseInt(userCookie, 10);
+        self.user.loggedIn = true;
       }
     },
 
@@ -183,7 +189,7 @@ const Shop = types
     load() {
       self.getProducts();
       self.getContent();
-      self.checkCart();
+      self.checkCookies();
     },
 
     reload() {

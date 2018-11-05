@@ -11,6 +11,9 @@ import OrderConfirmation from './OrderConfirmation';
 import FormikSearch from '../components/FormikSearch';
 import Payment from './Payment';
 import MyCart from './MyCart';
+import Basic from './zoom/Basic';
+import ReactSlickInt from './zoom/ReactSlickIntegration';
+import ExternalEnlarged from './zoom/ExternalEnlarged';
 import Checkout from './Checkout';
 import Help from './Help';
 import ContactUs from './ContactUs';
@@ -23,6 +26,9 @@ const Routes = () => (
     <Route exact path="/search" component={FormikSearch} />
     <Route exact path="/search/:searchTerm" component={ProductsPage} />
     <Route path="/help" component={Help} />
+    <Route path="/basic" component={Basic} />
+    <Route path="/reactslickintegration" component={ReactSlickInt} />
+    <Route path="/externalenlarged" component={ExternalEnlarged} />
     <Route path="/contact-us" component={ContactUs} />
     <Route path="/my-cart" component={MyCart} />
     <Route path="/payment" component={Payment} />

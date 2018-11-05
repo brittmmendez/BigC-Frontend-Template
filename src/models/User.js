@@ -26,6 +26,7 @@ const User = types
       self.loggedIn = false;
       self.token = '';
       cookies.remove('token');
+      cookies.remove('id');
       console.log(cookies);
       console.log('logged Out');
     },
@@ -64,6 +65,7 @@ const User = types
           console.log('signed in');
           console.log(result);
           cookies.set('token', result.token, { path: '/' });
+          cookies.set('id', result.customer.id, { path: '/' });
           console.log(cookies.get('token'));
           return true;
         }

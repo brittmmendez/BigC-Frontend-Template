@@ -1,10 +1,10 @@
 @charset "utf-8";
 
-// Import a Google Font
+// // Import a Google Font
 @import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700');
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-//set fonts for certain elements
+// //set fonts for certain elements
 h1, h2, h3, h4, h5, h6 {
     font-family: "Source Serif Pro";
 }
@@ -42,5 +42,6 @@ $grey-light: $iceberg;
 // $input-border-color: transparent;
 // $input-shadow: none;
 
-// Import only what you need from Bulma
+
+// // Import only what you need from Bulma
 @import 'node_modules/bulma/bulma.sass';
