@@ -50,16 +50,16 @@ const Shop = types
     // Check for cart cookie
     checkCookies() {
       const cartCookie = cookies.get('cart');
-      const userCookie = cookies.get('id');
+      const userCookie = cookies.get('user');
       // if there is a cart cookie
       if (cartCookie) {
         // get the cart from BigC and add items in cart back to line items
-        // self.cart.getBigCcart(cartCookie.id);
-        self.cart.getCart();
+        self.cart.getBigCcart(cartCookie.id);
+        // self.cart.getCart();
       }
       if (userCookie) {
-        debugger;
-        self.user.id = parseInt(userCookie, 10);
+        self.user.id = parseInt(userCookie.id, 10);
+        self.user.token = userCookie.token;
         self.user.loggedIn = true;
       }
     },
@@ -86,7 +86,7 @@ const Shop = types
         // set orderConfirmation model for confirmation container
         self.createOrderConfirmation(json);
         // clears cart if request is successful
-        self.cart.clearCart();
+        self.cart.deleteBigCcart(self.cart.id);
       } catch (err) {
         console.log(err);
       }

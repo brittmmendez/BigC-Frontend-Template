@@ -47,6 +47,37 @@ const Cart = types
     },
   }))
   .actions(self => ({
+    createCartCookie(id) {
+      debugger;
+      console.log('Cart Created');
+      self.id = id;
+      cookies.set('cart', { id }, { path: '/' });
+      console.log(cookies.get('cart'));
+      console.log(cookies);
+    },
+
+    getCart() {
+      const cookie = cookies.get('cart');
+      console.log(cookie);
+      self.id = cookie.id;
+      self.items = cookie.orderItems;
+    },
+
+    updateCart() {
+      // need to make API call to edit item
+      console.log('updating');
+      self.id = cookies.get('cart').id;
+      console.log(cookies);
+    },
+
+    clearCart() {
+      console.log('Cart Deleted');
+      self.id = '';
+      self.items = [];
+      cookies.remove('cart', { path: '/' });
+      console.log(cookies);
+    },
+
     createBigCcart: flow(function* createBigCcart(item, optionValue) {
       try {
         // (CORS) error run in terminal:
@@ -75,55 +106,9 @@ const Cart = types
         });
         let json = response;
         json = yield json.json();
-        console.log('Cart Created');
-        self.id = json.id;
-        cookies.set('cart', { id: json.id, orderItems: self.items }, { path: '/' });
-        console.log(cookies.get('cart'));
-        console.log(cookies);
-      } catch (err) {
-        console.log(err);
-      }
-    }),
-
-    // createCart() {
-    //   cookies.set('cart', { id: 'hello', orderItems: self.items }, { path: '/' });
-    //   self.id = cookies.get('cart').id;
-    //   console.log(cookies);
-    // },
-
-    updateCart() {
-      cookies.set('cart', { id: self.id, orderItems: self.items }, { path: '/' });
-      self.id = cookies.get('cart').id;
-      console.log(cookies);
-    },
-
-    getCart() {
-      const cookie = cookies.get('cart');
-      console.log(cookie);
-      self.id = cookie.id;
-      self.items = cookie.orderItems;
-    },
-
-    removeCart() {
-      self.id = '';
-      cookies.remove('cart', { path: '/' });
-      console.log(cookies);
-    },
-
-    deleteBigCcart: flow(function* deleteBigCcart(cookie) {
-      try {
-        // (CORS) error run in terminal:
-        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
-        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`);
         debugger;
-        let json = response;
-        json = yield json.json();
-        console.log(json);
+        self.createCartCookie(json.id);
         debugger;
-        console.log('Cart Deleted');
-        self.id = '';
-        cookies.remove('cart', { path: '/' });
-        console.log(cookies);
       } catch (err) {
         console.log(err);
       }
@@ -136,12 +121,27 @@ const Cart = types
         json = yield json.json();
         self.id = json.id;
         debugger;
-        // NEED TO FINISH
+        // NEED TO FINISH - would like to just use AddtoCart below but
+        // not getting option values back to need to firgure out how to do that
         json.line_items.physical_items.map(item => (
           console.log(item)
         ));
       } catch (err) {
         cookies.remove('cart', { path: '/' });
+        console.log(err);
+      }
+    }),
+
+    deleteBigCcart: flow(function* deleteBigCcart(cookie) {
+      try {
+        // (CORS) error run in terminal:
+        // open /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
+        const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`);
+        let json = response;
+        json = yield json.json();
+        console.log(json);
+        self.clearCart();
+      } catch (err) {
         console.log(err);
       }
     }),
@@ -172,19 +172,11 @@ const Cart = types
 
       // create initial cart
       if (!self.id) {
-        // self.createBigCcart(item, optionValue);
-        self.createCart();
+        self.createBigCcart(item, optionValue);
+        // self.createCart();
       } else {
         self.updateCart();
       }
-    },
-
-    clearCart() {
-      // remove all line items from cart
-      self.items = [];
-      // delete the cart from BigC
-      // self.deleteBigCcart(self.id);
-      self.removeCart();
     },
 
     removeFromCart(item) {

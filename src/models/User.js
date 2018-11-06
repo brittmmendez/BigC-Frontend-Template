@@ -25,8 +25,7 @@ const User = types
       self.email = '';
       self.loggedIn = false;
       self.token = '';
-      cookies.remove('token');
-      cookies.remove('id');
+      cookies.remove('user');
       console.log(cookies);
       console.log('logged Out');
     },
@@ -64,9 +63,8 @@ const User = types
           self.loggedIn = true;
           console.log('signed in');
           console.log(result);
-          cookies.set('token', result.token, { path: '/' });
-          cookies.set('id', result.customer.id, { path: '/' });
-          console.log(cookies.get('token'));
+          cookies.set('user', { token: result.token, id: result.customer.id }, { path: '/' });
+          console.log(cookies.get('user'));
           return true;
         }
       } catch (err) {
