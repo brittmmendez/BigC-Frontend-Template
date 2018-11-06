@@ -115,6 +115,7 @@ const Cart = types
     }),
 
     getBigCcart: flow(function* getBigCcart(cookie) {
+      let product;
       try {
         const response = yield window.fetch(`${getParent(self, 1).apiUrl}/carts/${cookie}`);
         let json = response;
@@ -123,9 +124,29 @@ const Cart = types
         debugger;
         // NEED TO FINISH - would like to just use AddtoCart below but
         // not getting option values back to need to firgure out how to do that
-        json.line_items.physical_items.map(item => (
-          console.log(item)
-        ));
+        json.line_items.physical_items.map((item) => {
+          product = getParent(self, 1).products.data.find(p => p.id === item.product_id);
+          if (product && item) {
+            debugger;
+            console.log('========== Product ========');
+            console.log(product);
+            console.log('========== Item ========');
+            console.log(item);
+            self.addToCart({ item: product, quantity: item.quantity });
+          }
+          return true;
+        });
+        // self.items.push({
+        //   id: parseInt(item.product_id + '' + 0, 10),
+        //   item: item.product_id,
+        //   name: item.name,
+        //   // description: item.description,
+        //   price: item.list_price,
+        //   quantity: item.quantity,
+        //   thumbnail: item.image_url,
+        //   option_id: 0,
+        //   option_value: 0,
+        // })
       } catch (err) {
         cookies.remove('cart', { path: '/' });
         console.log(err);
@@ -146,7 +167,13 @@ const Cart = types
       }
     }),
 
-    addToCart({ item, optionValue = 0, quantity }) {
+    addToCart({
+      item,
+      optionValue = 0,
+      optionId = 0,
+      quantity,
+    }) {
+      debugger;
       // Check cart for existing order item
       const prevId = item.item ? item.item : item.id;
       const id = parseInt(prevId + '' + optionValue, 10);
@@ -165,7 +192,7 @@ const Cart = types
           price: item.price,
           quantity: quantity ? quantity : 0,
           thumbnail: item.thumbnail_url,
-          option_id: item.options[0] ? item.options[0].id : 0,
+          option_id: optionId ? optionId : 0,
           option_value: optionValue ? optionValue : 0,
         });
       }

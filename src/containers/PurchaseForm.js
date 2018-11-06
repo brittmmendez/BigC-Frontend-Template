@@ -16,6 +16,7 @@ export default class PurchaseForm extends Component {
     this.state = {
       product,
       quantity: 1,
+      optionId: product.options[0] ? product.options[0].id : 0,
       optionValue: product.options[0] ? product.options[0].values[0].value_id : null,
     };
   }
